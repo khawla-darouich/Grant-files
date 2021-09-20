@@ -1,0 +1,10 @@
+.home {
+  flex: 4;
+}
+.homeTitle {
+  margin-top: 1rem;
+}
+.userName {
+  margin-top: -10px;
+  font-size: 13px;
+}

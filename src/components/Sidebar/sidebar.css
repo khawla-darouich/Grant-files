@@ -1,0 +1,22 @@
+.sidebar {
+  flex: 1;
+  height: calc(100vh - 55px);
+  background-color: rgb(251, 251, 255);
+  position: sticky;
+  top: 55px;
+
+  z-index: 1;
+  box-shadow: -5px -1px 16px -2px rgba(162, 193, 230, 0.26);
+  -webkit-box-shadow: -5px -1px 16px -2px rgba(162, 193, 230, 0.26);
+  -moz-box-shadow: -5px -1px 16px -2px rgba(162, 193, 230, 0.26);
+}
+
+.sidebarWrapper {
+  color: #555;
+  padding: 20px;
+}
+
+.sideBarTitle {
+  color: #2d8bb4;
+  font-size: 20px;
+}

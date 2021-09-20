@@ -1,0 +1,62 @@
+.sidebarTitle {
+  font-size: 15px;
+  color: rgb(0, 0, 0);
+}
+.sidebarMenu {
+  margin-bottom: 10px;
+}
+.sidebarList {
+  list-style: none;
+  padding: 5px;
+  margin-left: 5px;
+}
+
+.sidebarItem {
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.sidebarIcon {
+  margin-right: 5px;
+  font-size: 20px !important;
+}
+
+.sidebarItem.active,
+.sidebarItem:hover {
+  background-color: rgb(240, 240, 255);
+  color: #5aacd0;
+}
+.sideBarTitle {
+  color: #5aacd0;
+  font-size: 25px;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.sidebarHistory {
+  background-color: rgba(176, 215, 245, 0.487);
+  border: 1px solid rgba(180, 217, 245, 0.467);
+  border-radius: 12px;
+  margin-top: 80px;
+  min-height: 120px;
+  padding: 10px;
+}
+
+.historyTitle {
+  color: #5aacd0;
+  text-align: center;
+}
+
+.historyContainer {
+  font-size: 10px;
+  color: #5aacd0;
+}
+
+.historyIcon {
+  cursor: pointer;
+}

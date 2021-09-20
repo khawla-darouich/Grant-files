@@ -1,0 +1,43 @@
+.linechart {
+  margin: 15px;
+  border-radius: 8px;
+  padding: 10px;
+  padding-left: 5px;
+  box-shadow: 1px 4px 7px -6px #8ea0af;
+  background-color: #fff;
+}
+.linechartTitle {
+  font-size: medium;
+  margin: 10px;
+}
+.linechartContainer {
+  margin: 10px;
+}
+
+.keys {
+  margin-top: -1px;
+}
+.keyss {
+  border-left: 1px dashed rgb(202, 202, 202);
+}
+.keyItem {
+  display: flex;
+  align-items: center;
+  height: 1px;
+}
+
+.circle {
+  border-radius: 50%;
+  width: 50%;
+  height: 50%;
+}
+
+@media screen and (max-width: 768px) {
+}
+
+.keysTite {
+  color: #a7aeb5;
+  height: 1px;
+}
+.pie {
+}

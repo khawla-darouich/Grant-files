@@ -1,13 +1,33 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "DM Sans";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  color: #000;
+  overflow-x: hidden;
+  height: 100%;
+
+  background-color: rgb(247, 248, 250);
+  background-repeat: no-repeat;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+@font-face {
+  font-family: DM sans;
+  src: url(./font/DM_Sans/DMSans-Regular.ttf) format("opentype");
+  font-weight: normal;
+}
+@font-face {
+  font-family: DM sans;
+  src: url(./font/DM_Sans/DMSans-Medium.ttf) format("opentype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: DM sans;
+  src: url(./font/DM_Sans/DMSans-Medium.ttf) format("opentype");
+  font-weight: bold;
 }

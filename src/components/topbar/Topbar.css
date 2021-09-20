@@ -1,0 +1,44 @@
+.topBar {
+  width: 100%;
+  height: 55px;
+  background-color: white;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: -5px 9px 16px -2px rgba(224, 226, 238, 0.26);
+  -webkit-box-shadow: -5px 9px 16px -2px rgba(224, 226, 238, 0.26);
+  -moz-box-shadow: -5px 9px 16px -2px rgba(224, 226, 238, 0.26);
+}
+
+.topbarWrapper {
+  height: 100%;
+  padding: 0px 20px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  width: 22%;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.topBarIcons {
+  color: rgb(160, 160, 160);
+  cursor: pointer;
+}
+
+.icon {
+  font-size: 23px;
+  margin: 1px;
+}
+.date-text {
+  font-weight: bold;
+  font-size: 13px;
+  color: rgb(106, 106, 106);
+}
+
+.date {
+  align-items: flex-end;
+}

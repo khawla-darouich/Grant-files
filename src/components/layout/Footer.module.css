@@ -1,0 +1,28 @@
+.bgBlue {
+  color: #2d8bb4;
+  background: #f7f7f7;
+}
+
+.logo {
+  top: 0;
+  width: 80px;
+  margin-left: 1rem;
+}
+
+.text {
+  font-size: 12.5px;
+}
+
+.icon {
+  color: #add1e1;
+  font-size: 28px;
+}
+
+@media screen and (max-width: 768px) {
+  .text {
+    text-align: center;
+  }
+  .end {
+    text-align: center;
+  }
+}
