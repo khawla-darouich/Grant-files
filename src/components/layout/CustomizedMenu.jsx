@@ -1,3 +1,4 @@
+
 import * as React from 'react';
 import { styled, alpha } from '@mui/material/styles';
 import Button from '@mui/material/Button';
@@ -7,6 +8,8 @@ import Divider from '@mui/material/Divider';
 import { Edit,DeleteRounded,MoreHoriz,MoreVertSharp } from '@material-ui/icons';
 import BackDrop from './Backdrop';
 import { useState } from 'react';
+import Modal from './Modal';
+import Dialog from '../Dialog/Dialog';
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -43,7 +46,7 @@ const StyledMenu = styled((props) => (
   },
 }));
 
-export default function CustomizedMenu() {
+export default function CustomizedMenu(props) {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -56,12 +59,15 @@ export default function CustomizedMenu() {
     
   };
   const handleDelete=()=>{
-    setModalIsOpen(!modalIsOpen);
+    handleClose();
+    props.onDelete();
   }
   function closeModal() {
     console.log("hey")
     setModalIsOpen(false);
 }
+
+
   return (
     <div >
       <MoreVertSharp
@@ -89,10 +95,10 @@ export default function CustomizedMenu() {
           <Edit />
           modifier
         </MenuItem>
-        <MenuItem onClick={handleDelete} disableRipple>
+        <MenuItem  disableRipple>
           <DeleteRounded />
-          supprimer 
-          {modalIsOpen && <BackDrop onClick={closeModal} />}
+          <Dialog nom={props.nom} prenom={props.prenom} id={props.id} setReload={props.setReload} reload={handleDelete} /> 
+          
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />
        

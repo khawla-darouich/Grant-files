@@ -12,6 +12,7 @@ import { Edit,DeleteRounded } from '@material-ui/icons';
 import CustomizedMenu from '../../layout/CustomizedMenu';
 export default function UsersList() {
 
+const [reload,setReload]=useState(true);
     function CustomToolbar() {
         return (
           <GridToolbarContainer>
@@ -23,6 +24,11 @@ export default function UsersList() {
         );
       }
 
+      function onDelete()
+      { setReload(!reload);
+          console.log(reload)
+         
+      }
     const [data,setData]= useState([]);
     const columns = [
         { field: 'id', headerName: 'ID', headerClassName: 'super-app-theme--header' },
@@ -37,7 +43,7 @@ export default function UsersList() {
          renderCell: (params)=>{
              return (
                 <div className="actions">
-                    <CustomizedMenu>
+                    <CustomizedMenu nom={params.row.nom} prenom={params.row.prenom} id={params.row.id} onDelete={onDelete} >
 
                     </CustomizedMenu>
             </div>
@@ -109,7 +115,7 @@ export default function UsersList() {
         console.log(data, Users)
         },
         err=>{})
-    }, []);
+    }, [reload]);
       const rows = [
         { id: 1, lastName: 'khawla', firstName: 'nanana', age: 35 },
         { id: 2, lastName: 'hamza', firstName: 'nanana', age: 42 },
@@ -123,6 +129,10 @@ export default function UsersList() {
       ];
 
       const classes = useStyles();
+      console.log("rload")
+         
+      console.log(reload)
+         
     return (
         <div style={{ height: 600, width: '100%' }}>
             <DataGrid

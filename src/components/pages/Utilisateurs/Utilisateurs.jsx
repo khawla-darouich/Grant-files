@@ -1,7 +1,7 @@
 import React from 'react'
 import UsersList from './UsersList'
 import "./utilisateurs.css"
-
+import Dialog from '../../Dialog/Dialog'
 
 export default function Utilisateurs() {
 

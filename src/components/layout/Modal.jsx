@@ -10,8 +10,8 @@ function Modal(props) {
     }
     return (
         <div className='modal2'>
-            <h3 className="mb-3">Delete TODO </h3>
-            <h5 className="mb-3 text-info">Are u sure?</h5>
+            <h3 className="mb-3">Supprimer  </h3>
+            <p className="mb-3 ">voulez-vous supprimer {props.nom} {props.prenom}</p>
             <button className='btn m-1 btn--alt' onClick={cancelHandler}>Cancel</button>
             <button className='m-1 btn' onClick={confirmHandler}>Confirm</button>
         </div>
