@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useState,useEffect } from 'react';
 import {  makeStyles } from '@mui/styles';
 import { Edit,DeleteRounded } from '@material-ui/icons';
-import CustomizedMenu from '../../layout/CustomizedMenu';
+import CustomizedMenu from '../../layout/menu/CustomizedDossierMenu';
 import {GroupOutlined,ArrowBackRounded,ArrowForwardRounded,KeyboardArrowDownRounded,FolderOutlined} from '@material-ui/icons';
 export default function DossiersList() {
 
@@ -58,7 +58,7 @@ const [reload,setReload]=useState(true);
           
              return (
                 <div className="actions">
-                    <CustomizedMenu  id={params.row.id} emplacement={params.row.emplacement} cda={params.row.cda} saba={params.row.saba}  onDelete={onDelete} >
+                    <CustomizedMenu id={params.row.id} >
 
                     </CustomizedMenu>
             </div>
@@ -134,8 +134,10 @@ const [reload,setReload]=useState(true);
                 emplacement:element.emplacement.designation,
                 cda:element.dossier.cda.description,
                 saba:element.dossier.saba,
+                reference:element.dossier.reference,
                 dateDepot:formatDate(element.dossier.dateCreation),
-                postulant:element.dossier.agriculteur.nom+" "+element.dossier.agriculteur.prenom
+                postulant:element.dossier.agriculteur.nom+" "+element.dossier.agriculteur.prenom,
+               
               
             }
             Dossiers.push(obj);

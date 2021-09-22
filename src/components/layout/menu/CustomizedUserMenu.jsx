@@ -6,12 +6,12 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
 import { Edit,DeleteRounded,MoreHoriz,MoreVertSharp } from '@material-ui/icons';
-import BackDrop from './Backdrop';
+import BackDrop from '../Backdrop';
 import { useState } from 'react';
-import Modal from './Modal';
-import Dialog from '../Dialog/Dialog';
-import DialogEdit from '../Dialog/DialogEdit';
-import DialogDelete from '../Dialog/DialogDelete';
+import Modal from '../Modal';
+import Dialog from '../../Dialog/Dialog';
+import DialogEdit from '../../Dialog/DialogEdit';
+import DialogDelete from '../../Dialog/DialogDelete';
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}

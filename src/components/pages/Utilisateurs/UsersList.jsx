@@ -9,7 +9,7 @@ import axios from 'axios';
 import { useState,useEffect } from 'react';
 import {  makeStyles } from '@mui/styles';
 import { Edit,DeleteRounded } from '@material-ui/icons';
-import CustomizedMenu from '../../layout/CustomizedMenu';
+import CustomizedMenu from '../../layout/menu/CustomizedUserMenu';
 export default function UsersList() {
 
 const [reload,setReload]=useState(true);

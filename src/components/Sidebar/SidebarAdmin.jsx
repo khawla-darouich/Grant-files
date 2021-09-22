@@ -44,7 +44,7 @@ export default class  SidebarAdmin extends Component {
                  
             </div>
             <div className="sidebarMenu">
-                  <h3 className="sidebarTitle" style={{cursor:"pointer"}}><StorageRounded className="sidebarIcon"/><Link to="/dossiers" style={{textDecoration:"none"}}> Tous les dossiers</Link></h3> 
+                  <h3 className="sidebarTitle" style={{cursor:"pointer"}}><Link to="/dossiers" style={{textDecoration:"none"}}><StorageRounded className="sidebarIcon"/> Tous les dossiers</Link></h3> 
                   
             </div>
             <hr style={{ color:'#5aacd0'}}></hr>

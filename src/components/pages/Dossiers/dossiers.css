@@ -32,3 +32,16 @@
   top: 35vh;
   left: calc(50% - 10rem);
 }
+
+.dossierHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dossierDetail {
+  width: 500px;
+}
+
+.textBlue {
+  color: #2d8bb4;
+}
