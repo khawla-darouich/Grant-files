@@ -10,7 +10,8 @@ import { useState,useEffect } from 'react';
 import {  makeStyles } from '@mui/styles';
 import { Edit,DeleteRounded } from '@material-ui/icons';
 import CustomizedMenu from '../../layout/CustomizedMenu';
-export default function UsersList() {
+import {GroupOutlined,ArrowBackRounded,ArrowForwardRounded,KeyboardArrowDownRounded,FolderOutlined} from '@material-ui/icons';
+export default function DossiersList() {
 
 const [reload,setReload]=useState(true);
     function CustomToolbar() {
@@ -33,45 +34,31 @@ const [reload,setReload]=useState(true);
       }
     const [data,setData]= useState([]);
     const columns = [
-        { field: 'id', headerName: 'ID', headerClassName: 'super-app-theme--header' },
-        { field: 'nom', headerName: 'Nom', width: 130 ,headerClassName: 'super-app-theme--header' },
-        { field: 'prenom', headerName: 'Prenom', width: 130 ,headerClassName: 'super-app-theme--header' },
-        { field: 'email', headerName: 'Email', width: 180 ,headerClassName: 'super-app-theme--header' },
-        { field: 'antenne', sortable: false, headerName: 'Antenne', width: 130 ,headerClassName: 'super-app-theme--header' },
-        { field: 'role', sortable: false, headerName: 'Role', width: 110 ,headerClassName: 'super-app-theme--header' },
-        { field: 'action',
-         headerName:'Actions',
+        { field: 'etat', headerName: 'Etat',  headerClassName: 'super-app-theme--header',
+            renderCell: (params)=>{
+              if(params.row.etat==true)
+              {
+                return <ArrowForwardRounded style={{color:'red'}}></ArrowForwardRounded>
+              }
+              else{
+                return <ArrowBackRounded style={{color:'green'}}></ArrowBackRounded>
+              }
+          } 
+        },
+        { field: 'emplacement',sortable: false, headerName: 'Emplacement', width: 140 ,headerClassName: 'super-app-theme--header' },
+        { field: 'cda',sortable: false, headerName: 'Cda', width: 100 ,headerClassName: 'super-app-theme--header' },
+        { field: 'saba', headerName: 'Saba', width: 150 ,headerClassName: 'super-app-theme--header' },
+        { field: 'dateDepot', headerName: 'Date dépôt', width: 150 ,headerClassName: 'super-app-theme--header' },
+        { field: 'postulant',  headerName: 'Postulant', width: 140 ,headerClassName: 'super-app-theme--header' },
+        { field: 'actions',
+         headerName:"Actions",
          width:110,
          sortable: false,
          renderCell: (params)=>{
-           let role="";
-           if(params.row.role=="Admin")
-           {
-             role=1
-           } else if(params.row.role=="ADA")
-           {
-            role=2
-           }else if(params.row.role=="GUC")
-           {
-            role=3
-           }else if(params.row.role=="COMISSION")
-           {
-            role=4
-           }
-           let antenne="";
-           if(params.row.antenne=="AAA")
-           {
-             antenne=1
-           } else if(params.row.antenne=="BBB")
-           {
-            antenne=2
-           }else if(params.row.antenne=="CCC")
-           {
-            antenne=3
-           }
+          
              return (
                 <div className="actions">
-                    <CustomizedMenu antenne={antenne} role={role} email={params.row.email} nom={params.row.nom} prenom={params.row.prenom} id={params.row.id} onDelete={onDelete} >
+                    <CustomizedMenu  id={params.row.id} emplacement={params.row.emplacement} cda={params.row.cda} saba={params.row.saba}  onDelete={onDelete} >
 
                     </CustomizedMenu>
             </div>
@@ -94,7 +81,8 @@ const [reload,setReload]=useState(true);
       const useStyles = makeStyles({
         root: {
           '& .super-app-theme--header': {
-                fontSize: 15,
+                fontSize: 13,
+                fontWeight:"bold"
                 
           },
           "& .MuiDataGrid-renderingZone": {
@@ -116,31 +104,45 @@ const [reload,setReload]=useState(true);
           }
         }
       }
+      function formatDate(date) {
+        var d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+    
+        if (month.length < 2) 
+            month = '0' + month;
+        if (day.length < 2) 
+            day = '0' + day;
+    
+        return [year, month, day].join('-');
+    }
 
       useEffect(() => {
-      axios.get('/UsersList')
+      axios.get('/dossiersList')
       .then(
         res=>{
             console.log(res);
             const data=res.data;
            console.log(data);
-           const Users=[];
+           const Dossiers=[];
            data.forEach(element => {
                
             const obj={
-                id:element.id,
-                nom:element.nom,
-                prenom:element.prenom,
-                email:element.email,
-                antenne:element.antenne.abreviation,
-                role:element.roles[0].role
+                id:element.dossier.id,
+                etat:element.dossier.envoyer,
+                emplacement:element.emplacement.designation,
+                cda:element.dossier.cda.description,
+                saba:element.dossier.saba,
+                dateDepot:formatDate(element.dossier.dateCreation),
+                postulant:element.dossier.agriculteur.nom+" "+element.dossier.agriculteur.prenom
               
             }
-                Users.push(obj);
+            Dossiers.push(obj);
         });
-        setData(Users);
+        setData(Dossiers);
         console.log("allo")
-        console.log(data, Users)
+        console.log(data, Dossiers)
         },
         err=>{})
     }, [reload]);

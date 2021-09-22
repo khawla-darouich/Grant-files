@@ -1,0 +1,282 @@
+.form {
+  padding: 1rem;
+  margin: 20px;
+}
+
+.control {
+  margin-bottom: 0.5rem;
+}
+
+.control label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.form-control {
+  position: relative;
+  width: 100%;
+  border: none;
+  border: 1px solid rgb(208, 208, 208);
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+
+.control input,
+.control textarea {
+  display: block;
+  font: inherit;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  padding: 0.25rem;
+  width: 100%;
+}
+
+.button {
+  text-align: end;
+}
+
+.button button {
+  margin-top: 3rem;
+  font: inherit;
+  cursor: pointer;
+  background-color: rgb(54, 127, 204);
+  color: #fff;
+  font-weight: bold;
+  padding: 0.2rem 2rem;
+  border: 1px solid rgb(232, 231, 224);
+  border-radius: 20px;
+
+  font-size: 20px;
+  float: inline-end;
+}
+
+.button button:hover,
+.button button:active {
+  background-color: #fff;
+  border: 1px solid rgb(54, 127, 204);
+  color: rgb(54, 127, 204);
+}
+
+.actions2 button {
+  margin-top: 1.5rem;
+  font: inherit;
+  cursor: pointer;
+  background-color: #fff;
+  color: #2d8bb4;
+  padding: 0.5rem 4rem;
+  border: 1px solid #2d8bb4;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+.actions2 button:hover,
+.actions2 button:active {
+  background-color: #2d8bb4;
+  border-color: #2d8bb4;
+  color: #ccc;
+}
+/*********************/
+
+.card0 {
+  box-shadow: 0px 4px 8px 0px #757575;
+  border-radius: 0px;
+}
+
+.card2 {
+  margin: 0px 40px;
+}
+
+.divLogo {
+  justify-content: center;
+  text-align: center;
+}
+.image {
+  width: 360px;
+  height: 280px;
+}
+
+.borderLine {
+  border-right: 1px solid #eeeeee;
+}
+
+.facebook {
+  background-color: #3b5998;
+  color: #fff;
+  font-size: 18px;
+  padding-top: 5px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+input .empty {
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-decoration: inherit;
+}
+
+.inputGroupPrepend span {
+  width: 50px;
+  background-color: #f7f7f7;
+  color: #1da1f2;
+  border: 0 !important;
+}
+.twitter {
+  background-color: #1da1f2;
+  color: #fff;
+  font-size: 18px;
+  padding-top: 5px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.linkedin {
+  background-color: #2867b2;
+  color: #fff;
+  font-size: 18px;
+  padding-top: 5px;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.line {
+  height: 1px;
+  width: 30%;
+  background-color: #e0e0e0;
+  margin-top: 40px;
+}
+
+.h1 {
+  color: #2d8ba4;
+}
+.or {
+  width: 40%;
+  font-weight: bold;
+  color: #2c3e50;
+  font-size: 25px;
+}
+h1 {
+  color: #2c3e50;
+}
+.textSm {
+  font-size: 14px !important;
+}
+
+::placeholder {
+  color: #bdbdbd;
+  opacity: 1;
+  font-weight: 300;
+}
+
+:-ms-input-placeholder {
+  color: #bdbdbd;
+  font-weight: 300;
+}
+
+::-ms-input-placeholder {
+  color: #bdbdbd;
+  font-weight: 300;
+}
+
+input,
+textarea {
+  padding: 10px 12px 10px 12px;
+  border: 1px solid lightgrey;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  margin-top: 2px;
+  width: 100%;
+  box-sizing: border-box;
+  color: #2c3e50;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+input:focus,
+textarea:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  border: 1px solid #304ffe;
+  outline-width: 0;
+}
+
+button:focus {
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
+  outline-width: 0;
+}
+
+a {
+  color: inherit;
+  cursor: pointer;
+}
+
+.btn-blue {
+  background-color: #1a237e;
+  width: 150px;
+  color: #fff;
+  border-radius: 2px;
+}
+
+.btn-blue:hover {
+  background-color: #000;
+  cursor: pointer;
+}
+
+.bg-blue {
+  color: #fff;
+  background-color: #1a237e;
+}
+
+@media screen and (max-width: 991px) {
+  .logo {
+    margin-left: 0px;
+  }
+
+  .image {
+    width: 300px;
+    height: 220px;
+  }
+
+  .borderLine {
+    border-right: none;
+  }
+
+  .card2 {
+    border-top: 1px solid #eeeeee !important;
+    margin: 0px 15px;
+  }
+}
+
+.pass a {
+  text-decoration: none;
+  color: #2d8bb4;
+}
+
+.newUser {
+  flex: 4;
+  margin: 15px;
+  border-radius: 8px;
+  padding: 10px;
+  padding-left: 5px;
+  box-shadow: 1px 4px 7px -6px #8ea0af;
+  background-color: #fff;
+}
+
+.info {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+.text {
+  font-size: 20px;
+}

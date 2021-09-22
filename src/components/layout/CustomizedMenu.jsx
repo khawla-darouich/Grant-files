@@ -10,6 +10,8 @@ import BackDrop from './Backdrop';
 import { useState } from 'react';
 import Modal from './Modal';
 import Dialog from '../Dialog/Dialog';
+import DialogEdit from '../Dialog/DialogEdit';
+import DialogDelete from '../Dialog/DialogDelete';
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -91,13 +93,13 @@ export default function CustomizedMenu(props) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose} disableRipple>
+        <MenuItem disableRipple>
           <Edit />
-          modifier
+          <DialogEdit onUpdate={props.onDelete} nom={props.nom} prenom={props.prenom} id={props.id} antenne={props.antenne} role={props.role} email={props.email}></DialogEdit>
         </MenuItem>
         <MenuItem  disableRipple>
           <DeleteRounded />
-          <Dialog nom={props.nom} prenom={props.prenom} id={props.id} setReload={props.setReload} reload={handleDelete} /> 
+          <DialogDelete nom={props.nom} prenom={props.prenom} id={props.id}  reload={handleDelete} /> 
           
         </MenuItem>
         <Divider sx={{ my: 0.5 }} />

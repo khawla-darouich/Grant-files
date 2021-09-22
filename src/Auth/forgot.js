@@ -37,11 +37,7 @@ export default class Forgot extends Component{
         event.preventDefault();
       
         this.validate(event);
-      
-
-          
-               
-        
+         
 
     }
       validate(event)

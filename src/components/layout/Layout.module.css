@@ -4,3 +4,14 @@
   float: right;
   height: 50vw;
 }
+.page {
+  flex: 4;
+  margin: 15px;
+  border-radius: 8px;
+  padding: 10px;
+  padding-left: 5px;
+  box-shadow: 1px 4px 7px -6px #8ea0af;
+  background-color: #fff;
+  margin-bottom: 40px;
+  min-height: 600px;
+}

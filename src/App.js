@@ -6,8 +6,8 @@ import Loggin from './Auth/Loggin';
 import Dashboard from './components/Dashboard/Dashboard';
 
 import Forgot from './Auth/forgot';
-import UpdatePassword from './Auth/updatePassword';
-import Reset from './Auth/reset';*/
+import UpdatePassword from './Auth/updatePassword';*/
+import Reset from './Auth/reset';
 import { Component } from 'react';
 import axios from 'axios';
 import Topbar from './components/topbar/Topbar';
@@ -16,6 +16,9 @@ import "./app.css"
 import Home from './components/pages/Home/Home';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Utilisateurs from './components/pages/Utilisateurs/Utilisateurs';
+import UserForm from './components/pages/Utilisateurs/UserForm';
+import NewUser from './components/pages/Utilisateurs/NewUser';
+import Dossiers from './components/pages/Dossiers/Dossiers';
 
 export default class App extends Component {
   state={};
@@ -62,6 +65,12 @@ export default class App extends Component {
             </Route>
             <Route exact path="/utilisateurs">
               <Utilisateurs></Utilisateurs>
+            </Route>
+            <Route exact path="/dossiers">
+              <Dossiers></Dossiers>
+            </Route>
+            <Route exact path="/nouveauUtilisateur">
+              <NewUser></NewUser>
             </Route>
           </Switch>
         </div>

@@ -1,65 +1,49 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import axios from 'axios';
+import Button from '@mui/material/Button';
 import { useHistory } from 'react-router';
 import Slide from '@mui/material/Slide';
+import './dialog.css'
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 export default function AlertDialog(props) {
-    const history=useHistory();
-  const [open, setOpen] = React.useState(false);
+  
+  
 
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleDelete= () =>{
-      let url="users/"+props.id
-        axios.delete(url).then(res=>{
-            console.log("done")
-            handleClose();
-            props.reload();
-            console.log("done")
-        }, err=>{console.log("undone")})
+const styles = theme => ({
+  dialogPaper: {
+    opacity: 0.5,
+    border: '#FF0000 1px solid',
+  },
+  button: {
+    margin: '30px'
   }
+});
 
   return (
     <div>
-      <div variant="outlined" onClick={handleClickOpen}>
-        Supprimer 
+      <div variant="outlined" onClick={props.handleClickOpen}>
+        {props.action} 
       </div>
-      <Dialog
-        open={open}
+      <Dialog borderRadius="50%"
+        PaperProps={{ 
+          style: {
+          
+            borderRadius:'10px'
+          
+          },
+         } }
+        open={props.open}
         TransitionComponent={Transition}
-        onClose={handleClose}
+        onClose={props.handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title">
-          {" Supprimer un utilisateurs?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-           Voulez-vous supprimer {props.nom} {props.prenom}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleDelete}>oui</Button>
-          <Button onClick={handleClose} autoFocus>
-            non
-          </Button>
-        </DialogActions>
+        {props.children}
+        
       </Dialog>
     </div>
   );

@@ -1,10 +1,10 @@
 import React from 'react'
-import UsersList from './UsersList'
-import "./utilisateurs.css"
+import "./dossiers.css"
 import Dialog from '../../Dialog/Dialog'
 import { PeopleRounded } from '@material-ui/icons';
 import Page from '../../layout/Page';
-export default function Utilisateurs() {
+import DossiersList from './DossiersList';
+export default function Dossiers() {
 
     
 
@@ -12,11 +12,11 @@ export default function Utilisateurs() {
         <Page>
             
             <div className="row mt-1 px-2">
-                            <h5 className={``}> <PeopleRounded style={{fontSize:25}} />  Liste de utilisateurs</h5>   
+                            <h5 className={``}> <PeopleRounded style={{fontSize:25}} />  Liste des dossiers</h5>   
                                 <hr></hr>
                         </div>
            
-                   <UsersList></UsersList>
+                   <DossiersList></DossiersList>
             
     
         

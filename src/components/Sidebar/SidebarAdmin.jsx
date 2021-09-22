@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import "./sidebarAdmin.css";
 import {GroupOutlined,History,BuildOutlined,PersonAddOutlined, StorageRounded,FolderOutlined,HomeOutlined,PersonAdd,PeopleOutline,LineStyle,Tune} from '@material-ui/icons';
-
+import { Link } from 'react-router-dom';
 
 export default class  SidebarAdmin extends Component {
       constructor(props) {
@@ -25,7 +25,7 @@ export default class  SidebarAdmin extends Component {
             <div className="sidebarMenu">
                   <h3 className="sidebarTitle"><Tune className="sidebarIcon"/> Outils</h3> 
                   <ul className="sidebarList">
-                      <li className="sidebarItem active"><HomeOutlined className="sidebarIcon"/> Home</li>
+                      <li className="sidebarItem active"><HomeOutlined className="sidebarIcon"/><Link to="/" style={{textDecoration:"none"}}> Home</Link> </li>
                       <li className="sidebarItem"><BuildOutlined className="sidebarIcon"/> Outils</li>
                       <li className="sidebarItem"><GroupOutlined className="sidebarIcon"/> Utilisateurs</li>
                       
@@ -34,8 +34,8 @@ export default class  SidebarAdmin extends Component {
             <div className="sidebarMenu">
                   <h3 className="sidebarTitle"><GroupOutlined className="sidebarIcon"/> Utilisateurs</h3> 
                   <ul className="sidebarList">
-                      <li className="sidebarItem"><PersonAddOutlined className="sidebarIcon"/> Ajouter un utilisateur</li>
-                      <li className="sidebarItem"><PeopleOutline className="sidebarIcon"/> Utilisateurs</li>
+                      <li className="sidebarItem"><PersonAddOutlined className="sidebarIcon"/> <Link to="/nouveauUtilisateur" style={{textDecoration:"none"}}>Ajouter un utilisateur</Link></li>
+                      <li className="sidebarItem"><PeopleOutline className="sidebarIcon"/>  <Link to="/utilisateurs" style={{textDecoration:"none"}}>Utilisateurs</Link> </li>
                       
                   </ul>
             </div>
@@ -44,7 +44,7 @@ export default class  SidebarAdmin extends Component {
                  
             </div>
             <div className="sidebarMenu">
-                  <h3 className="sidebarTitle"><StorageRounded className="sidebarIcon"/> Tous les dossier</h3> 
+                  <h3 className="sidebarTitle" style={{cursor:"pointer"}}><StorageRounded className="sidebarIcon"/><Link to="/dossiers" style={{textDecoration:"none"}}> Tous les dossiers</Link></h3> 
                   
             </div>
             <hr style={{ color:'#5aacd0'}}></hr>
