@@ -11,7 +11,19 @@ import {  makeStyles } from '@mui/styles';
 import { Edit,DeleteRounded } from '@material-ui/icons';
 import CustomizedMenu from '../../layout/menu/CustomizedDossierMenu';
 import {GroupOutlined,ArrowBackRounded,ArrowForwardRounded,KeyboardArrowDownRounded,FolderOutlined} from '@material-ui/icons';
-export default function DossiersList() {
+export default function HistoryList() {
+
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+        // a and b are javascript Date objects
+        function dateDiffInDays(a, b) {
+        // Discard the time and time-zone information.
+        const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+        const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
+
+        return Math.floor((utc2 - utc1) / _MS_PER_DAY);
+        }
+
 
 const [reload,setReload]=useState(true);
     function CustomToolbar() {
@@ -34,36 +46,44 @@ const [reload,setReload]=useState(true);
       }
     const [data,setData]= useState([]);
     const columns = [
-        { field: 'etat', headerName: 'Etat',sortable: false,  headerClassName: 'super-app-theme--header',
+        { field: 'etape', headerName: 'R/A',sortable: false, width:90, headerClassName: 'super-app-theme--header',
             renderCell: (params)=>{
-              if(params.row.etat==true)
+              if(params.row.etape==="approbation")
               {
-                return <ArrowForwardRounded style={{color:'red'}}></ArrowForwardRounded>
+                return <div style={{color:'#304954', fontWeight:"bold"}}>A</div>
               }
               else{
-                return <ArrowBackRounded style={{color:'green'}}></ArrowBackRounded>
+                return <div style={{color:'#5aacd0', fontWeight:"bold"}}>R</div>
               }
           } 
         },
-        { field: 'emplacement',sortable: false, headerName: 'Emplacement', width: 140 ,headerClassName: 'super-app-theme--header' },
-        { field: 'cda',sortable: false, headerName: 'Cda', width: 100 ,headerClassName: 'super-app-theme--header' },
+        { field: 'emplacement',sortable: false,  headerName: 'Emplacement', width: 140 ,headerClassName: 'super-app-theme--header',
+        renderCell: (params)=>{
+            if(params.row.emplacement==="Guichet unique central")
+            {
+              return <div >GUC</div>
+            }
+            else{
+              return <div >{params.row.emplacement}</div>
+            }
+        }  },
+        { field: 'antenne',sortable: false, headerName: 'Antenne', width: 120 ,headerClassName: 'super-app-theme--header' },
         { field: 'saba', headerName: 'Saba', width: 150 ,headerClassName: 'super-app-theme--header' },
-        { field: 'dateDepot', headerName: 'Date dépôt', width: 150 ,headerClassName: 'super-app-theme--header' },
-        { field: 'postulant',  headerName: 'Postulant', width: 140 ,headerClassName: 'super-app-theme--header' },
-        { field: 'actions',
-         headerName:"Actions",
-         width:110,
+        { field: 'dateReception', headerName: 'Récéption', width: 140 ,headerClassName: 'super-app-theme--header' },
+        { field: 'dateEnvoi',  headerName: 'Envoi', width: 140 ,headerClassName: 'super-app-theme--header' },
+        { field: 'retard',
+         headerName:"Retard",
+         width:100,
          sortable: false,
          renderCell: (params)=>{
-          
-             return (
-                <div className="actions">
-                    <CustomizedMenu id={params.row.id} >
-
-                    </CustomizedMenu>
-            </div>
-             );
-         }
+            if(params.row.retard>=0)
+            {
+              return <div style={{color:'green', fontWeight:"bold"}}>+{params.row.retard} jours</div>
+            }
+            else{
+              return <div style={{color:'red', fontWeight:"bold"}}>{params.row.retard} jours</div>
+            }
+        } 
         }
        /* {
           field: 'fullName',
@@ -118,8 +138,50 @@ const [reload,setReload]=useState(true);
         return [year, month, day].join('-');
     }
 
+    function calcRetard(dateR,dateE,etape,emplacement)
+    {
+        let diff=0;
+        if(dateE)
+        {
+             diff=dateDiffInDays(new Date(dateR),new Date(dateE));
+        }
+        else{
+             diff=dateDiffInDays(new Date(dateR),new Date());
+        }
+       
+        console.log(data.etape)
+        if(etape==="approbation")
+        {
+            if(emplacement==="Antenne")
+            {
+                return 3-diff;
+            }else if(emplacement==="Guichet unique central")
+            {
+                return 2-diff;
+            }
+            else if(emplacement==="Commission")
+            {
+                return 15-diff;
+            }
+        }
+        else if(etape==="realisation")
+        {
+            if(emplacement==="Antenne")
+            {
+                return 2-diff;
+            }else if(emplacement==="Guichet unique central")
+            {
+                return 1-diff;
+            }
+            else if(emplacement==="Commission")
+            {
+                return 23-diff;
+            }
+        }
+    }
+
       useEffect(() => {
-      axios.get('/dossiersList')
+      axios.get('/transactions')
       .then(
         res=>{
             console.log(res);
@@ -129,14 +191,15 @@ const [reload,setReload]=useState(true);
            data.forEach(element => {
                
             const obj={
-                id:element.dossier.id,
-                etat:element.dossier.envoyer,
-                emplacement:element.emplacement.designation,
-                cda:element.dossier.cda.description,
-                saba:element.dossier.saba,
-                reference:element.dossier.reference,
-                dateDepot:formatDate(element.dossier.dateCreation),
-                postulant:element.dossier.agriculteur.nom+" "+element.dossier.agriculteur.prenom,
+                id:element.historique.id.dossierid+"-"+element.historique.id.emplacement_id,
+                etape:element.etape.designation,
+                emplacement:element.historique.emplacement.designation,
+                antenne:element.historique.dossier.cda.antenne.abreviation,
+                saba:element.historique.dossier.saba,
+                dateReception:formatDate(element.historique.datereception),
+                dateEnvoi:formatDate(element.historique.date_envoi),
+                retard:calcRetard(element.historique.datereception,element.historique.date_envoi,element.etape.designation,element.historique.emplacement.designation)
+               
                
               
             }
@@ -174,3 +237,4 @@ const [reload,setReload]=useState(true);
         
     )
 }
+

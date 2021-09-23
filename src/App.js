@@ -16,9 +16,9 @@ import "./app.css"
 import Home from './components/pages/Home/Home';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import Utilisateurs from './components/pages/Utilisateurs/Utilisateurs';
-import UserForm from './components/pages/Utilisateurs/UserForm';
 import NewUser from './components/pages/Utilisateurs/NewUser';
 import Dossiers from './components/pages/Dossiers/Dossiers';
+import History from './components/pages/History/History';
 
 export default class App extends Component {
   state={};
@@ -71,6 +71,9 @@ export default class App extends Component {
             </Route>
             <Route exact path="/nouveauUtilisateur">
               <NewUser></NewUser>
+            </Route>
+            <Route exact path="/historique">
+              <History></History>
             </Route>
           </Switch>
         </div>

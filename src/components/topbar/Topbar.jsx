@@ -2,6 +2,7 @@ import React from 'react';
 import "./Topbar.css";
 import logoORMVA from '../../assets/logoORMVA.png';
 import {Tune, AccountCircle,CalendarTodayOutlined,KeyboardArrowDownOutlined,ArrowDropDownCircleRounded} from '@material-ui/icons';
+import CustomizedAccountMenu from '../layout/menu/CustomizedAccountMenu';
 
 export default function Topbar() {
     return (
@@ -19,7 +20,7 @@ export default function Topbar() {
                        <div className="date-text ">03,Jun 2021</div>
                         </div>
                         <AccountCircle className="icon"/>
-                        <KeyboardArrowDownOutlined className="icon"></KeyboardArrowDownOutlined>
+                        <CustomizedAccountMenu className="icon"></CustomizedAccountMenu>
                     </div>
                 </div>
             </div>

@@ -4,15 +4,17 @@ import axios from 'axios';
 export default function DossierDetail(props) {
 
     const [dossier,setDossier]=useState({});
+    const [data,setData]=useState(false)
 
     useEffect(() => {
         let url="/detailDossier/"+props.id
         axios.get(url)
         .then(res=>{
             const obj=res.data
-            console.log("res.data")
             console.log(obj)
-            setDossier(obj)
+            setDossier(res.data)
+            setData(true)
+            console.log(window.location.href)
         },err=>{})
         
     }, [])
@@ -38,11 +40,14 @@ export default function DossierDetail(props) {
           <div > <small>Date du dépôt :  <strong>{formatDate(dossier.dateCreation)}</strong></small></div>
          
           </div>  <hr/>
-          <div className="m-1">
+         
+              
+              <div className="m-1">
               
               <div ><strong>Reference : </strong> {dossier.reference} </div>
               
-              <div ><strong>Antenne d'origin : </strong> {dossier.cda.antenne.abreviation} </div>
+              {data? <div>
+                <div className="mx-2" ><small> <strong>CDA d'origin : </strong> {dossier.cda.antenne.abreviation}</small> </div>
                 <div className="mx-2" ><small> <strong>CDA d'origin : </strong> {dossier.cda.description}</small> </div>
               <div ><strong>Rubrique : </strong> {dossier.sousRubrique.rubrique.desgnation} </div>
               <div className="mx-2" ><small> <strong>Sous-rubrique : </strong> {dossier.sousRubrique.designation}</small> </div>
@@ -52,10 +57,15 @@ export default function DossierDetail(props) {
               <div className="mx-2" ><small> <strong>N° téléphone : </strong> {dossier.agriculteur.tel  }</small> </div>
               <div className="mx-2" ><small> <strong>CIN : </strong> {dossier.agriculteur.cin  }</small> </div>
                </div>
+                </div> : <div></div>
 
+              }
 
 
           </div>
+
+
+        
             
         </div>
     )

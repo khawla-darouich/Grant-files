@@ -30,6 +30,11 @@
   background-color: rgb(240, 240, 255);
   color: #5aacd0;
 }
+
+.sidebarTitle.active,
+.sidebarTitle:hover {
+  color: #5aacd0;
+}
 .sideBarTitle {
   background-color: #5aacd0;
   font-size: 25px;
@@ -61,4 +66,12 @@
 
 .historyIcon {
   cursor: pointer;
+}
+.link {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.link:hover {
+  color: #304954;
 }

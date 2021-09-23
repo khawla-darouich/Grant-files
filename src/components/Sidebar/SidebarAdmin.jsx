@@ -19,13 +19,13 @@ export default class  SidebarAdmin extends Component {
              <h1 className="sideBarTitle">Espace Admin</h1>
              <hr style={{ color:'#5aacd0'}} />
             <div className="sidebarMenu">
-                  <h3 className="sidebarTitle"><LineStyle className="sidebarIcon"/> Home</h3> 
+                  <h3 className="sidebarTitle active"><Link to="/"  className="link" style={{textDecoration:"none"}}><LineStyle className="sidebarIcon"/> Home</Link></h3> 
                   
             </div>
             <div className="sidebarMenu">
                   <h3 className="sidebarTitle"><Tune className="sidebarIcon"/> Outils</h3> 
                   <ul className="sidebarList">
-                      <li className="sidebarItem active"><HomeOutlined className="sidebarIcon"/><Link to="/" style={{textDecoration:"none"}}> Home</Link> </li>
+                      <li className="sidebarItem "><HomeOutlined className="sidebarIcon"/> Home </li>
                       <li className="sidebarItem"><BuildOutlined className="sidebarIcon"/> Outils</li>
                       <li className="sidebarItem"><GroupOutlined className="sidebarIcon"/> Utilisateurs</li>
                       
@@ -34,17 +34,17 @@ export default class  SidebarAdmin extends Component {
             <div className="sidebarMenu">
                   <h3 className="sidebarTitle"><GroupOutlined className="sidebarIcon"/> Utilisateurs</h3> 
                   <ul className="sidebarList">
-                      <li className="sidebarItem"><PersonAddOutlined className="sidebarIcon"/> <Link to="/nouveauUtilisateur" style={{textDecoration:"none"}}>Ajouter un utilisateur</Link></li>
-                      <li className="sidebarItem"><PeopleOutline className="sidebarIcon"/>  <Link to="/utilisateurs" style={{textDecoration:"none"}}>Utilisateurs</Link> </li>
+                      <li className="sidebarItem"> <Link to="/nouveauUtilisateur" className="link" style={{textDecoration:"none"}}> <PersonAddOutlined className="sidebarIcon"/>Ajouter un utilisateur</Link></li>
+                      <li className="sidebarItem"> <Link to="/utilisateurs" className="link" style={{textDecoration:"none"}}><PeopleOutline className="sidebarIcon"/> Utilisateurs</Link> </li>
                       
                   </ul>
             </div>
             <div className="sidebarMenu">
-                  <h3 className="sidebarTitle"><FolderOutlined className="sidebarIcon"/> Etat dossier</h3> 
+                  <h3 className="sidebarTitle"><Link to="/historique" className="link" ><FolderOutlined className="sidebarIcon"/> Etat dossier</Link> </h3> 
                  
             </div>
             <div className="sidebarMenu">
-                  <h3 className="sidebarTitle" style={{cursor:"pointer"}}><Link to="/dossiers" style={{textDecoration:"none"}}><StorageRounded className="sidebarIcon"/> Tous les dossiers</Link></h3> 
+                  <h3 className="sidebarTitle" style={{cursor:"pointer"}}><Link to="/dossiers" className="link" > <StorageRounded className="sidebarIcon"/>Tous les dossiers</Link></h3> 
                   
             </div>
             <hr style={{ color:'#5aacd0'}}></hr>
