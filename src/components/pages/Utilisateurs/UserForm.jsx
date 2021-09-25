@@ -92,8 +92,6 @@ export default class  UserForm extends Component {
 
     render()
     {
-        console.log("Roles") 
-        console.log(this.state.roles) 
         return (
             <div className="">
                     <div className="card card2 border-0">

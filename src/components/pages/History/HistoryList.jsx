@@ -70,10 +70,10 @@ const [reload,setReload]=useState(true);
         { field: 'antenne',sortable: false, headerName: 'Antenne', width: 120 ,headerClassName: 'super-app-theme--header' },
         { field: 'saba', headerName: 'Saba', width: 150 ,headerClassName: 'super-app-theme--header' },
         { field: 'dateReception', headerName: 'Récéption', width: 140 ,headerClassName: 'super-app-theme--header' },
-        { field: 'dateEnvoi',  headerName: 'Envoi', width: 140 ,headerClassName: 'super-app-theme--header' },
+        { field: 'dateEnvoi',  headerName: 'Envoi', width: 130 ,headerClassName: 'super-app-theme--header' },
         { field: 'retard',
-         headerName:"Retard",
-         width:100,
+         headerName:"Echéance",
+         width:120,
          sortable: false,
          renderCell: (params)=>{
             if(params.row.retard>=0)
@@ -189,6 +189,14 @@ const [reload,setReload]=useState(true);
            console.log(data);
            const Dossiers=[];
            data.forEach(element => {
+               let date=null;
+
+               if(!element.historique.date_envoi)
+               {
+                date="---"
+               }else{
+                date=formatDate(element.historique.date_envoi);
+               }
                
             const obj={
                 id:element.historique.id.dossierid+"-"+element.historique.id.emplacement_id,
@@ -197,7 +205,7 @@ const [reload,setReload]=useState(true);
                 antenne:element.historique.dossier.cda.antenne.abreviation,
                 saba:element.historique.dossier.saba,
                 dateReception:formatDate(element.historique.datereception),
-                dateEnvoi:formatDate(element.historique.date_envoi),
+                dateEnvoi:date,
                 retard:calcRetard(element.historique.datereception,element.historique.date_envoi,element.etape.designation,element.historique.emplacement.designation)
                
                

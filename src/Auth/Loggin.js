@@ -5,10 +5,11 @@ import Card from '../components/ui/Card';
 import Footer from '../components/layout/Footer';
 import logoORMVA from '../assets/logoORMVA.png';
 import { Link, Redirect } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import {withRouter} from 'react-router-dom' 
+ class Loggin extends Component{
 
-
-export default class Loggin extends Component{
-
+     
     state={};
       loginHandler=(event)=>{
          event.preventDefault();
@@ -25,19 +26,21 @@ export default class Loggin extends Component{
             
              console.log(res);
              localStorage.setItem('tokenAuth',res.headers.authorization);
-             this.setState({
-                 isAuthenticated:true
-             });
+          
+
+             this.props.setUser(res.data)
+                    this.props.onUser(res.data)
+                    this.props.onAuth(true)
              let config={
                 headers:{
                   Authorization : "Bearer "+localStorage.getItem("tokenAuth")
                 }
               }
+              this.props.history.push("/");
               axios.get('currentUser',config)
               .then(
                   res=>{
-                    this.props.setUser(res.data)
-      
+                    
                           console.log(res.data);
                   })
             
@@ -67,10 +70,6 @@ export default class Loggin extends Component{
     
             render()
             {
-                if(this.state.isAuthenticated )
-                {
-                    return <Redirect to={'/'} />
-                }
                 
             return (
               
@@ -143,3 +142,4 @@ export default class Loggin extends Component{
 }
 
 
+export default withRouter(Loggin)

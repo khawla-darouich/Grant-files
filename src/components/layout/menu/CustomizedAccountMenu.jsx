@@ -5,13 +5,16 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-import { KeyboardArrowDownRounded,LogoutOutlined,MoreHoriz,MoreVertSharp } from '@material-ui/icons';
+import { KeyboardArrowDownRounded,MoreHoriz,MoreVertSharp } from '@material-ui/icons';
 import BackDrop from '../Backdrop';
 import { useState } from 'react';
+import { useHistory } from 'react-router';
 import Modal from '../Modal';
 import Dialog from '../../Dialog/Dialog';
 import DialogEdit from '../../Dialog/DialogEdit';
 import DialogDelete from '../../Dialog/DialogDelete';
+import { BsBoxArrowLeft,BsChevronDown ,BsFillPersonFill,BsCalendar} from "react-icons/bs";
+import { Link } from 'react-router-dom';
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -24,7 +27,8 @@ const StyledMenu = styled((props) => (
   '& .MuiPaper-root': {
     borderRadius: 6,
     marginTop: theme.spacing(1),
-    minWidth: 180,
+    minWidth: 160,
+    marginTop:20,
     color:
       theme.palette.mode === 'light' ? 'rgb(55, 65, 81)' : theme.palette.grey[300],
     boxShadow:
@@ -48,11 +52,14 @@ const StyledMenu = styled((props) => (
   },
 }));
 
+
+
 export default function CustomizedAccountMenu(props) {
 
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const history=useHistory([]);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -69,10 +76,16 @@ export default function CustomizedAccountMenu(props) {
     setModalIsOpen(false);
 }
 
+function handleLogout(){
+  localStorage.clear();
+  handleClose();
+  props.onAuth(false)
+  history.push("/login")
+}
 
   return (
     <div >
-      <KeyboardArrowDownRounded
+      <BsChevronDown
         id="demo-customized-button"
         aria-controls="demo-customized-menu"
         aria-haspopup="true"
@@ -82,8 +95,8 @@ export default function CustomizedAccountMenu(props) {
         onClick={handleClick}
         
       >
-        Options
-      </KeyboardArrowDownRounded>
+       
+      </BsChevronDown>
       <StyledMenu
         id="demo-customized-menu"
         MenuListProps={{
@@ -93,20 +106,16 @@ export default function CustomizedAccountMenu(props) {
         open={open}
         onClose={handleClose}
       >
-        <MenuItem disableRipple>
-        
-          <DialogEdit onUpdate={props.onDelete} nom={props.nom} prenom={props.prenom} id={props.id} antenne={props.antenne} role={props.role} email={props.email}></DialogEdit>
-        </MenuItem>
         <MenuItem  disableRipple>
-          <LogoutOutlined />
-          <DialogDelete nom={props.nom} prenom={props.prenom} id={props.id}  reload={handleDelete} /> 
+           <Link className="link" to="/account"> <BsFillPersonFill className="mx-1"/> Compte</Link>
+            
+          
           
         </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
+      
        
-        <MenuItem onClick={handleClose} disableRipple>
-          <MoreHoriz />
-          More
+        <MenuItem onClick={handleLogout} disableRipple>
+        <BsBoxArrowLeft className="mx-1"/> Logout
         </MenuItem>
       </StyledMenu>
     </div>

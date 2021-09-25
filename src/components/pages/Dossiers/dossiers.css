@@ -45,3 +45,7 @@
 .textBlue {
   color: #2d8bb4;
 }
+.form-group {
+  justify-content: center;
+  align-items: center;
+}

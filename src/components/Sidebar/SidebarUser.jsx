@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import "./sidebarAdmin.css";
-import {GroupOutlined,History,BuildOutlined,PersonAddOutlined, StorageRounded,FolderOutlined,HomeOutlined,PersonAdd,PeopleOutline,LineStyle,Tune} from '@material-ui/icons';
+import {GroupOutlined,History,Outbox,PersonAddOutlined, StorageRounded,FolderOutlined,HomeOutlined,PersonAdd,PeopleOutline,LineStyle,Tune} from '@material-ui/icons';
 import { Link } from 'react-router-dom';
+import {BsInbox,BsFolderPlus,BsBoxArrowRight} from "react-icons/bs";
 
-export default class  SidebarAdmin extends Component {
+export default class  SidebarUser extends Component {
       constructor(props) {
             super(props);
             this.state = {/* Awesome State Not Yet Used */}
@@ -23,14 +24,11 @@ export default class  SidebarAdmin extends Component {
                   
             </div>
             <div className="sidebarMenu">
-                  <h3 className="sidebarTitle"><Tune className="sidebarIcon"/> Outils</h3> 
-                 
-            </div>
-            <div className="sidebarMenu">
-                  <h3 className="sidebarTitle"><GroupOutlined className="sidebarIcon"/> Utilisateurs</h3> 
+                  <h3 className="sidebarTitle"><GroupOutlined className="sidebarIcon"/> Gestion des dossiers</h3> 
                   <ul className="sidebarList">
-                      <li className="sidebarItem"> <Link to="/nouveauUtilisateur" className="link" style={{textDecoration:"none"}}> <PersonAddOutlined className="sidebarIcon"/>Ajouter un utilisateur</Link></li>
-                      <li className="sidebarItem"> <Link to="/utilisateurs" className="link" style={{textDecoration:"none"}}><PeopleOutline className="sidebarIcon"/> Utilisateurs</Link> </li>
+                      <li className="sidebarItem"> <Link to="/nouveauDossier" className="link" style={{textDecoration:"none"}}> <BsFolderPlus className="sidebarIcon"/>Créer un dossier </Link></li>
+                      <li className="sidebarItem"> <Link to="/utilisateurs" className="link" style={{textDecoration:"none"}}><BsInbox className="sidebarIcon"/> A réceptionner</Link> </li>
+                      <li className="sidebarItem"> <Link to="/utilisateurs" className="link" style={{textDecoration:"none"}}><BsBoxArrowRight className="sidebarIcon"/> A envoyer</Link> </li>
                       
                   </ul>
             </div>

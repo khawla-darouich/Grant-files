@@ -32,11 +32,12 @@
 .icon {
   font-size: 23px;
   margin: 1px;
+  color: #005f88;
 }
 .date-text {
   font-weight: bold;
   font-size: 13px;
-  color: rgb(106, 106, 106);
+  color: #005f88;
 }
 
 .date {

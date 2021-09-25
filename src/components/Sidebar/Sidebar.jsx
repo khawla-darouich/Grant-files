@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./sidebar.css";
 import SidebarAdmin from './SidebarAdmin';
+import SidebarUser from './SidebarUser';
 
 export default class Sidebar extends Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export default class Sidebar extends Component {
         <div className="sidebar">
            <div className="sidebarWrapper">
               
-               <SidebarAdmin ></SidebarAdmin>
+               <SidebarUser ></SidebarUser>
            </div>
         </div>
     )
