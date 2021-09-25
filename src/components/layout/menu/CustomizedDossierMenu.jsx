@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-import { Edit,DeleteRounded,MoreHoriz,MoreVertSharp,VisibilityRounded } from '@material-ui/icons';
+import { Edit,DeleteRounded,ArrowBackOutlined,MoreVertSharp,VisibilityRounded } from '@material-ui/icons';
 import BackDrop from '../Backdrop';
 import { useState } from 'react';
 import Modal from '../Modal';
@@ -13,6 +13,7 @@ import Dialog from '../../Dialog/Dialog';
 import DialogEdit from '../../Dialog/DialogEdit';
 import DialogDelete from '../../Dialog/DialogDelete';
 import DialogView from '../../Dialog/DialogView';
+import {BsInbox,BsFolderPlus,BsBoxArrowInLeft} from "react-icons/bs";
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -98,17 +99,22 @@ export default function CustomizedMenu(props) {
           <VisibilityRounded />
          <DialogView  id={props.id} ></DialogView>
         </MenuItem>
-        <MenuItem  disableRipple>
+        
+        {props.receptionner===true?
+          
+          <MenuItem onClick={handleClose} disableRipple>
+          <ArrowBackOutlined  />
+              Récéptionner
+          </MenuItem>
+         
+           :
+           <MenuItem  disableRipple>
           <DeleteRounded />
           <DialogDelete nom={props.nom} prenom={props.prenom} id={props.id}  reload={handleDelete} /> 
           
         </MenuItem>
-        <Divider sx={{ my: 0.5 }} />
-       
-        <MenuItem onClick={handleClose} disableRipple>
-          <MoreHoriz />
-          More
-        </MenuItem>
+        }
+        
       </StyledMenu>
     </div>
   );

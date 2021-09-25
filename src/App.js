@@ -23,6 +23,8 @@ import History from './components/pages/History/History';
 import Account from './components/pages/Account/Account';
 import PrivateRoute from './components/HOC/PrivateRoute';
 import NewDossier from './components/pages/Dossiers/NewDossier';
+import DossierAReceptionner from './components/pages/Dossiers/DossierAReceptionner';
+import DossierAEnvoyer from './components/pages/Dossiers/DossierAEnvoyer';
 export default class App extends Component {
   state={};
    
@@ -66,7 +68,6 @@ export default class App extends Component {
   render()
   {
     let classes=this.state.isAuthenticated? "app-container":"app"
-    console.log(classes)
      return (
       <div>
          {this.state.isAuthenticated?
@@ -75,19 +76,21 @@ export default class App extends Component {
 
         <div className={classes}>
         {this.state.isAuthenticated?
-          <Sidebar></Sidebar>
+          <Sidebar user={this.state.user}></Sidebar>
           :null}
           <Switch>
             
             <Route path='/login' component={()=><Loggin setUser={this.setUser} onUser={(user) => this.setState({user: user})} onAuth={(auth) => this.setState({isAuthenticated: auth})} />}>
 
             </Route>
-            <PrivateRoute exact path='/' component={Home} />
+            <PrivateRoute exact path='/' component={()=><Home />} />
             <PrivateRoute path='/utilisateurs' component={Utilisateurs} />
             <PrivateRoute path='/dossiers' component={Dossiers} />
             <PrivateRoute path='/nouveauUtilisateur' component={NewUser} />
             <PrivateRoute path='/historique' component={History} />
             <PrivateRoute path='/account' component={Account} />
+            <PrivateRoute path='/aReceptionner' component={DossierAReceptionner} />
+            <PrivateRoute path='/aEnvoyer' component={DossierAEnvoyer} />
             <PrivateRoute path='/nouveauDossier' component={NewDossier} />
             <Route path='/forgot' component={Forgot}></Route>
         <Route path='/reset' component={()=><Reset setUser={this.setUser}/>}></Route>

@@ -57,11 +57,8 @@ export default function FeaturedInfo() {
         axios.get('/dossiersList')
         .then(
           res=>{
-              console.log(res);
               const data=res.data;
-             console.log('nananaa')
-             console.log(data);
-             setNbDossiers(data.length);  console.log(data.length);
+             setNbDossiers(data.length);  
              let cmpt=0;
              data.forEach(element => {
                 
@@ -69,7 +66,6 @@ export default function FeaturedInfo() {
                   cmpt++;
           });
           setNbApp(cmpt)
-          console.log(cmpt)
           axios.get("/UsersList")
           .then(res=>{
               setNbUsers(res.data.length)

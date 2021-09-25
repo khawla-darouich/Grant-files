@@ -12,8 +12,6 @@ const AntenneChart = () => {
 	useEffect(() => {
 		axios.get('dossiersByAntenne')
 			.then(res=>{
-				console.log("chart")
-				console.log(res)
 				setData(res.data)
 			}
 			, err=>{

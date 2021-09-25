@@ -88,8 +88,6 @@ const [data,setData]= useState([]);
 useEffect(() => {
     axios.get('dossiersByCda')
         .then(res=>{
-            console.log("chart")
-            console.log(res)
             setData(res.data)
         }
         , err=>{

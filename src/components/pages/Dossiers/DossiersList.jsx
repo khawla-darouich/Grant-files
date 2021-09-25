@@ -8,12 +8,11 @@ import { DataGrid,
 import axios from 'axios';
 import { useState,useEffect } from 'react';
 import {  makeStyles } from '@mui/styles';
-import { Edit,DeleteRounded } from '@material-ui/icons';
 import CustomizedMenu from '../../layout/menu/CustomizedDossierMenu';
 import {GroupOutlined,ArrowBackRounded,ArrowForwardRounded,KeyboardArrowDownRounded,FolderOutlined} from '@material-ui/icons';
-export default function DossiersList() {
+export default function DossiersList(props) {
 
-const [reload,setReload]=useState(true);
+
     function CustomToolbar() {
         return (
           <GridToolbarContainer>
@@ -26,13 +25,7 @@ const [reload,setReload]=useState(true);
       }
 
       
-
-      function onDelete()
-      { setReload(!reload);
-          console.log(reload)
-         
-      }
-    const [data,setData]= useState([]);
+    
     const columns = [
         { field: 'etat', headerName: 'Etat',sortable: false,  headerClassName: 'super-app-theme--header',
             renderCell: (params)=>{
@@ -58,7 +51,7 @@ const [reload,setReload]=useState(true);
           
              return (
                 <div className="actions">
-                    <CustomizedMenu id={params.row.id} >
+                    <CustomizedMenu id={params.row.id} receptionner={props.receptionner? true:false} >
 
                     </CustomizedMenu>
             </div>
@@ -104,62 +97,16 @@ const [reload,setReload]=useState(true);
           }
         }
       }
-      function formatDate(date) {
-        var d = new Date(date),
-            month = '' + (d.getMonth() + 1),
-            day = '' + d.getDate(),
-            year = d.getFullYear();
     
-        if (month.length < 2) 
-            month = '0' + month;
-        if (day.length < 2) 
-            day = '0' + day;
-    
-        return [year, month, day].join('-');
-    }
-
-      useEffect(() => {
-      axios.get('/dossiersList')
-      .then(
-        res=>{
-            console.log(res);
-            const data=res.data;
-           console.log(data);
-           const Dossiers=[];
-           data.forEach(element => {
-               
-            const obj={
-                id:element.dossier.id,
-                etat:element.dossier.envoyer,
-                emplacement:element.emplacement.designation,
-                cda:element.dossier.cda.description,
-                saba:element.dossier.saba,
-                reference:element.dossier.reference,
-                dateDepot:formatDate(element.dossier.dateCreation),
-                postulant:element.dossier.agriculteur.nom+" "+element.dossier.agriculteur.prenom,
-               
-              
-            }
-            Dossiers.push(obj);
-        });
-        setData(Dossiers);
-        console.log("allo")
-        console.log(data, Dossiers)
-        },
-        err=>{})
-    }, [reload]);
-      
 
       const classes = useStyles();
-      console.log("rload")
-         
-      console.log(reload)
+     
          
     return (
         <div style={{ height: 600, width: '100%' , padding:20}}>
             <DataGrid
                         className={classes.root}
-                            rows={data}
+                            rows={props.data}
                             columns={columns}
                             pageSize={8}
                             rowsPerPageOptions={[8]}

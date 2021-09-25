@@ -15,9 +15,20 @@ export default class  SidebarUser extends Component {
       render()
       {
      
+            console.log('role')
+            console.log(this.props.role)
     return (
         <div className="sidebarAdmin">
-             <h1 className="sideBarTitle">Espace Admin</h1>
+             
+             {this.props.role==="GUC"?
+                   <h2 className="sideBarTitle">Espace GUC</h2>
+                  :this.props.role==="ADA"?
+                  <h4 className="sideBarTitle">Espace Antenne</h4>
+                  :this.props.role==="COMISSION"?
+                  <h4 className="sideBarTitle">Espace Commission</h4>
+                  :null
+             }
+             
              <hr style={{ color:'#5aacd0'}} />
             <div className="sidebarMenu">
                   <h3 className="sidebarTitle active"><Link to="/"  className="link" style={{textDecoration:"none"}}><LineStyle className="sidebarIcon"/> Home</Link></h3> 
@@ -27,8 +38,8 @@ export default class  SidebarUser extends Component {
                   <h3 className="sidebarTitle"><GroupOutlined className="sidebarIcon"/> Gestion des dossiers</h3> 
                   <ul className="sidebarList">
                       <li className="sidebarItem"> <Link to="/nouveauDossier" className="link" style={{textDecoration:"none"}}> <BsFolderPlus className="sidebarIcon"/>Créer un dossier </Link></li>
-                      <li className="sidebarItem"> <Link to="/utilisateurs" className="link" style={{textDecoration:"none"}}><BsInbox className="sidebarIcon"/> A réceptionner</Link> </li>
-                      <li className="sidebarItem"> <Link to="/utilisateurs" className="link" style={{textDecoration:"none"}}><BsBoxArrowRight className="sidebarIcon"/> A envoyer</Link> </li>
+                      <li className="sidebarItem"> <Link to="/aReceptionner" className="link" style={{textDecoration:"none"}}><BsInbox className="sidebarIcon"/> A réceptionner</Link> </li>
+                      <li className="sidebarItem"> <Link to="/aEnvoyer" className="link" style={{textDecoration:"none"}}><BsBoxArrowRight className="sidebarIcon"/> A envoyer</Link> </li>
                       
                   </ul>
             </div>
