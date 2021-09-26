@@ -36,13 +36,10 @@ export default function DossierAReceptionner() {
        .then(res=>{
            console.log(res)
            const currUser=res.data
-        axios.get('/transactions')
+        axios.get('/transactions',config)
         .then(
           res=>{
-              console.log(currUser)
-              console.log(res);
               const data=res.data;
-             console.log(data);
              const Dossiers=[];
              data.forEach(element => {
                 
@@ -53,7 +50,7 @@ export default function DossierAReceptionner() {
                     || (currUser.roles[0].role==="COMISSION" && element.etape.designation==="realisation" && element.historique.emplacement.designation==="Guichet unique central" && element.historique.dossier.envoyer===true) 
                     )
                 {
-                            console.log("one")
+                            
                             let date=null;
                         if(!element.historique.date_envoi)
                         {
@@ -76,8 +73,6 @@ export default function DossierAReceptionner() {
                  
           });
           setData(Dossiers);
-          console.log("allo")
-          console.log(data, Dossiers)
           },
           err=>{})
        })

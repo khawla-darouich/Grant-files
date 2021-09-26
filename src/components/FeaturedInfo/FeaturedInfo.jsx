@@ -52,9 +52,13 @@ export default function FeaturedInfo() {
             }
         }
     }
-    
+    const config={
+        headers:{
+          Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+        }
+      }
     useEffect(() => {
-        axios.get('/dossiersList')
+        axios.get('/dossiersList',config)
         .then(
           res=>{
               const data=res.data;
@@ -66,10 +70,10 @@ export default function FeaturedInfo() {
                   cmpt++;
           });
           setNbApp(cmpt)
-          axios.get("/UsersList")
+          axios.get("/UsersList",config)
           .then(res=>{
               setNbUsers(res.data.length)
-              axios.get("/transactions")
+              axios.get("/transactions",config)
               .then(res=>{
                   const data=res.data;
                   let i=0;

@@ -10,7 +10,8 @@ import { useState,useEffect } from 'react';
 import {  makeStyles } from '@mui/styles';
 import { Edit,DeleteRounded } from '@material-ui/icons';
 import CustomizedMenu from '../../layout/menu/CustomizedDossierMenu';
-import {GroupOutlined,ArrowBackRounded,ArrowForwardRounded,KeyboardArrowDownRounded,FolderOutlined} from '@material-ui/icons';
+import {SendRounded} from '@material-ui/icons';
+import DialogSend from '../../Dialog/DialogSend';
 export default function HistoryList(props) {
 
    
@@ -26,6 +27,11 @@ export default function HistoryList(props) {
         );
       }
 
+      const envoyer=()=>{
+        console.log("props.envoyer")
+        console.log(props.envoyer)
+        return props.envoyer;
+      }
      
     const columns = [
         { field: 'etape', headerName: 'R/A',sortable: false, width:90, headerClassName: 'super-app-theme--header',
@@ -52,7 +58,8 @@ export default function HistoryList(props) {
         { field: 'antenne',sortable: false, headerName: 'Antenne', width: 120 ,headerClassName: 'super-app-theme--header' },
         { field: 'saba', headerName: 'Saba', width: 150 ,headerClassName: 'super-app-theme--header' },
         { field: 'dateReception', headerName: 'Récéption', width: 140 ,headerClassName: 'super-app-theme--header' },
-        { field: 'dateEnvoi',  headerName: 'Envoi', width: 130 ,headerClassName: 'super-app-theme--header' },
+        { field: 'dateEnvoi',  headerName: 'Envoi', width: 130 ,headerClassName: 'super-app-theme--header',
+         hide:envoyer()  },
         { field: 'retard',
          headerName:"Echéance",
          width:120,
@@ -66,7 +73,17 @@ export default function HistoryList(props) {
               return <div style={{color:'red', fontWeight:"bold"}}>{params.row.retard} jours</div>
             }
         } 
+        },
+        { field: 'action',  headerName: 'Envoyer', width: 130 ,headerClassName: 'super-app-theme--header',
+          hide:!envoyer() ,
+          renderCell: (params)=>{
+            return <div className=" px-3">
+              <DialogSend saba={params.row.saba} id={params.row.id} onSend={props.onSend}/>
+            </div> 
         }
+          
+            
+        },
        /* {
           field: 'fullName',
           headerName: 'Full name',

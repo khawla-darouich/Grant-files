@@ -22,14 +22,17 @@ export default function Dossiers() {
     
         return [year, month, day].join('-');
     }
+    const config={
+        headers:{
+          Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+        }
+      }
 
       useEffect(() => {
-      axios.get('/dossiersList')
+      axios.get('/dossiersList',config)
       .then(
         res=>{
-            console.log(res);
             const data=res.data;
-           console.log(data);
            const Dossiers=[];
            data.forEach(element => {
                
@@ -46,8 +49,6 @@ export default function Dossiers() {
             Dossiers.push(obj);
         });
         setData(Dossiers);
-        console.log("allo")
-        console.log(data, Dossiers)
         },
         err=>{})
     }, [reload]);

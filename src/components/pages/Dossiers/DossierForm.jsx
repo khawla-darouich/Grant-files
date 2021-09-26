@@ -46,7 +46,7 @@ export default class DossierForm extends Component {
                 console.log(err)
             })
 
-            axios.get("rubriques")
+            axios.get("rubriques",config)
             .then(res=>{
                 this.setState({
                     rubriques:res.data._embedded.rubriques
@@ -68,17 +68,32 @@ export default class DossierForm extends Component {
         let input=this.state.input;
         input[event.target.name]= event.target.value;
 
+        if(event.target.name==="cin")
+        {
+            this.setState({
+                cin:event.target.value,
+                input
+            });
+        }
         this.setState({
             input
         });
+        
+        console.log("change")
+        console.log(this.state.input)
     }
     
     handleChangeRubrique()
     {
+        const config={
+            headers:{
+              Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+            }
+          }
        
         const url="sousRubriqueByRubrique/"+this.state.input.rubrique
         
-        axios.get(url,this.config)
+        axios.get(url,config)
             .then(res=>{
                 this.setState({
                     sousRubriques:res.data
@@ -97,8 +112,15 @@ export default class DossierForm extends Component {
 
     handleChangeAgriculteur()
     {
+        console.log("before")
+        console.log(this.state.input.cin)
+        const config={
+            headers:{
+              Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+            }
+          }
         const url="agriculteurByCin/"+this.state.input.cin;
-        axios.get(url,this.config)
+        axios.get(url,config)
         .then(res=>{
                 const agr=res.data
             this.setState({
@@ -107,6 +129,7 @@ export default class DossierForm extends Component {
                     tel:agr.tel,
                     nom:agr.nom,
                     prenom:agr.prenom,
+                    cin:agr.cin,
                     saba:this.state.input.saba,
                     reference:this.state.input.reference,
                     cda:this.state.input.cda,
@@ -123,7 +146,13 @@ export default class DossierForm extends Component {
     handleAgriculteur(event)
     {
         this.handleChange(event);
+        
+        console.log("after1")
+        console.log(this.state.input.cin)
         this.handleChangeAgriculteur();
+        
+        console.log("after")
+        console.log(this.state.input.cin)
     }
 
     refresh()
@@ -136,19 +165,24 @@ export default class DossierForm extends Component {
     }
 
     handleSubmit= (e)=>{
+        
         e.preventDefault();
         const dossier={
             saba:this.state.input.saba,
             reference:this.state.input.reference,
             cda:{id:this.state.input.cda},
             sousRubrique:{id:this.state.input.sousRubrique},
-            agriculteur:{id:1}
+            agriculteur:{}
         };
-        
+        const config={
+            headers:{
+              Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+            }
+          }
         if(this.state.agriculteur)
         {
             dossier.agriculteur.id=this.state.agriculteur.id
-            axios.post("addDossier",dossier,this.config)
+            axios.post("addDossier",dossier,config)
             .then(res=>{
                 console.log(res)
             })
@@ -157,16 +191,19 @@ export default class DossierForm extends Component {
                 tel:this.state.input.tel,
                 nom:this.state.input.nom,
                 prenom:this.state.input.prenom,
-                cin:this.state.input.cin
+                cin:this.state.cin
             }
-            axios.post("agriculteurs",agriculteur,this.config)
+            console.log("agriculteur")
+            console.log(agriculteur)
+            axios.post("agriculteurs",agriculteur,config)
             .then(res=>{
                 const url="agriculteurByCin/"+agriculteur.cin;
-                axios.get(url,this.config)
+                axios.get(url,config)
                 .then(res=>{
                     dossier.agriculteur.id=res.data.id
-                    axios.post("addDossier",dossier,this.config)
+                    axios.post("addDossier",dossier,config)
                     .then(res=>{
+                        this.props.onSubmit();
                         console.log(res)
                     })
                 })
@@ -175,8 +212,6 @@ export default class DossierForm extends Component {
         
      }
     render() {
-        console.log("this.state.agriculteur")
-        console.log(this.state.agriculteur)
        
         return (
             <div>

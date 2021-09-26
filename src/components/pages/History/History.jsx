@@ -76,14 +76,16 @@ export default function History() {
             }
         }
     }
-
+    const config={
+        headers:{
+          Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+        }
+      }
       useEffect(() => {
-      axios.get('/transactions')
+      axios.get('/transactions',config)
       .then(
         res=>{
-            console.log(res);
             const data=res.data;
-           console.log(data);
            const Dossiers=[];
            data.forEach(element => {
                let date=null;
@@ -111,8 +113,6 @@ export default function History() {
             Dossiers.push(obj);
         });
         setData(Dossiers);
-        console.log("allo")
-        console.log(data, Dossiers)
         },
         err=>{})
     }, [reload]);

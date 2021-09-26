@@ -23,7 +23,12 @@ export default class  AccountEdit extends Component {
         this.handleChange=this.handleChange.bind(this);
         this.refresh=this.refresh.bind(this);
 
-        axios.get('antennes')
+        const config={
+            headers:{
+              Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+            }
+          }
+        axios.get('antennes',config)
         .then(res=>{
             console.log(res.data._embedded.antennes)
             this.setState({
@@ -57,20 +62,32 @@ export default class  AccountEdit extends Component {
         console.log(this.state.input)
     }
 
+    
     handleSubmit= (e)=>{
         e.preventDefault();
-        if(!this.props.id)
+        const config={
+            headers:{
+              Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+            }
+          }
+        if(!this.props.user.id)
      {
          console.log(this.state.input)
-       this.props.onSubmit(this.state.input)
+         this.props.onSubmit(this.state.input)
      }
      else{
-        console.log(this.state.input)
-         axios.post("updateUser",this.state.input)
+        
+        const user={
+            antenne: {id:this.state.input.antenne},
+            email: this.state.input.email,
+            nom: this.state.input.nom,
+            prenom: this.state.input.prenom
+        }
+        console.log(user)
+         axios.post("updateUser",user,config)
          .then(res=>{
              console.log(res)
-            this.props.onClose();
-            this.props.onUpdate();
+             this.props.onChange();
          },err=>{})
         
      }

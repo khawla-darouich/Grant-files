@@ -87,15 +87,11 @@ export default function DossierAEnvoyer() {
       useEffect(() => {
         axios.get("currentUser",config)
         .then(res=>{
-            console.log(res)
             const currUser=res.data
-         axios.get('/transactions')
+         axios.get('/transactions',config)
          .then(
            res=>{
-               console.log(currUser)
-               console.log(res);
                const data=res.data;
-              console.log(data);
               const Dossiers=[];
               data.forEach(element => {
                  
@@ -104,7 +100,6 @@ export default function DossierAEnvoyer() {
                      || (currUser.roles[0].role==="ADA" && element.historique.emplacement.designation==="Antenne" && element.historique.dossier.envoyer===false) 
                       )
                  {
-                             console.log("one")
                              let date=null;
                          if(!element.historique.date_envoi)
                          {
@@ -113,7 +108,7 @@ export default function DossierAEnvoyer() {
                          date=formatDate(element.historique.date_envoi);
                          }
                      const obj={
-                        id:element.historique.id.dossierid+"-"+element.historique.id.emplacement_id,
+                        id:element.historique.dossier.id,
                         etape:element.etape.designation,
                         emplacement:element.historique.emplacement.designation,
                         antenne:element.historique.dossier.cda.antenne.abreviation,
@@ -128,13 +123,14 @@ export default function DossierAEnvoyer() {
                   
            });
            setData(Dossiers);
-           console.log("allo")
-           console.log(data, Dossiers)
            },
            err=>{})
         })
        }, [reload]);
      
+       const handleSend=()=>{
+        setReload(!reload)
+       }
 
     return (
         <Page>
@@ -144,7 +140,7 @@ export default function DossierAEnvoyer() {
                                 <hr></hr>
                         </div>
            
-                        <HistoryList data={data} envoyer={true} ></HistoryList>
+                        <HistoryList data={data} envoyer={true} onSend={handleSend}></HistoryList>
             
             
     

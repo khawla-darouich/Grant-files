@@ -23,10 +23,16 @@ export default class  UserForm extends Component {
             roles:[]
         };
 
+
         this.handleChange=this.handleChange.bind(this);
         this.refresh=this.refresh.bind(this);
 
-        axios.get('antennes')
+        const config={
+            headers:{
+              Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+            }
+          }
+        axios.get('antennes',config)
         .then(res=>{
             console.log(res.data._embedded.antennes)
             this.setState({
@@ -34,7 +40,7 @@ export default class  UserForm extends Component {
             })
         },err=>{})
 
-        axios.get('roles')
+        axios.get('roles',config)
         .then(res=>{
             console.log(res.data._embedded.roles)
             this.setState({
@@ -76,8 +82,13 @@ export default class  UserForm extends Component {
        this.props.onSubmit(this.state.input)
      }
      else{
+        const config={
+            headers:{
+              Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+            }
+          }
         console.log(this.state.input)
-         axios.post("editUser",this.state.input)
+         axios.post("editUser",this.state.input,config)
          .then(res=>{
              console.log(res)
             this.props.onClose();

@@ -6,11 +6,16 @@ import { useEffect } from 'react';
 import {FiberManualRecord} from '@material-ui/icons';
 
 const AntenneChart = () => {
-
+	
+	const config={
+        headers:{
+          Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+        }
+      }
 	const [data,setData]= useState([]);
 
 	useEffect(() => {
-		axios.get('dossiersByAntenne')
+		axios.get('dossiersByAntenne',config)
 			.then(res=>{
 				setData(res.data)
 			}

@@ -6,9 +6,14 @@ export default function DossierDetail(props) {
     const [dossier,setDossier]=useState({});
     const [data,setData]=useState(false)
 
+    const config={
+        headers:{
+          Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+        }
+      }
     useEffect(() => {
         let url="/detailDossier/"+props.id
-        axios.get(url)
+        axios.get(url,config)
         .then(res=>{
             const obj=res.data
             console.log(obj)

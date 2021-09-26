@@ -116,9 +116,13 @@ const [reload,setReload]=useState(true);
           }
         }
       }
-
+      const config={
+        headers:{
+          Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+        }
+      }
       useEffect(() => {
-      axios.get('/UsersList')
+      axios.get('/UsersList',config)
       .then(
         res=>{
             console.log(res);

@@ -12,8 +12,13 @@ export default function MonthChart() {
     "July", "August", "September", "October", "November", "December"
   ];
  
+  const config={
+    headers:{
+      Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+    }
+  }
     useEffect(() => {
-    axios.get("dossiers").
+    axios.get("dossiers",config).
     then(res=>{
         
         

@@ -54,7 +54,7 @@ export default function DossiersList(props) {
                     <CustomizedMenu id={params.row.id} receptionner={props.receptionner? true:false} >
 
                     </CustomizedMenu>
-            </div>
+                </div>
              );
          }
         }

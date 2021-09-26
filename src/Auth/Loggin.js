@@ -10,6 +10,13 @@ import {withRouter} from 'react-router-dom'
  class Loggin extends Component{
 
      
+    constructor()
+    {
+        super();
+        this.state={
+            error:""
+        };
+    }
     state={};
       loginHandler=(event)=>{
          event.preventDefault();
@@ -47,7 +54,9 @@ import {withRouter} from 'react-router-dom'
             
             
          }).catch(err=>{
-
+            this.setState({
+                error:"Email ou mot de passe incorrect !"
+            })
             console.log("heey"+err);
             
          })
@@ -107,6 +116,7 @@ import {withRouter} from 'react-router-dom'
                         <div><small> Entrez vos informations d'identification </small></div>
                     </div>
                     <form className={classes.form}  >
+                    <div className="text-danger">{this.state.error}</div>
                 <div className={`form-group`}>
                     <label htmlFor="email">Email</label>
                     <input className={`form-control`} type="email " required id="email" onChange={ e => this.email = e.target.value} placeholder="xyz@gmail.com" />

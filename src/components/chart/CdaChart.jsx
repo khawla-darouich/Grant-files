@@ -85,8 +85,13 @@ export default function CdaChart() {
     
 const [data,setData]= useState([]);
 
+const config={
+  headers:{
+    Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+  }
+}
 useEffect(() => {
-    axios.get('dossiersByCda')
+    axios.get('dossiersByCda',config)
         .then(res=>{
             setData(res.data)
         }

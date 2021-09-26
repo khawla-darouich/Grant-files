@@ -11,16 +11,10 @@ export default function NewDossier() {
     const [error,setError]=useState("")
     const history=useHistory();
     
-    function handleSubmit(data)
-    {
-        axios.post("register",data)
-        .then(res=>{ 
-            console.log("doone")
-            history.push("/utilisateurs")
-        },err=>{
-            setError(err.response.data.message)
-        })
+    const handleSubmit=()=>{
+        history.push("/dossiers");
     }
+    
 
     return (
        <Page>
@@ -28,7 +22,7 @@ export default function NewDossier() {
                             <h5 className={``}> <BsFolderPlus style={{fontSize:25}} />  Nouveau Dossier</h5>   
                                 <hr></hr>
                         </div>
-                <DossierForm></DossierForm>
+                <DossierForm onSubmit={handleSubmit} ></DossierForm>
            </Page>
             
      

@@ -12,6 +12,7 @@ export default function Account() {
 
      const [data, setData] = useState({})
      const [done,setDone]=useState(false)
+     const [reload, setReload] = useState(false)
     const config={
         headers:{
           Authorization : "Bearer "+localStorage.getItem("tokenAuth")
@@ -27,19 +28,10 @@ export default function Account() {
             }).catch(err=>{
                 console.log(err)
             })
-      }, [])
+      }, [reload])
      
-    const User={ 
-        nom:"DAROUICH",
-         prenom: "Khawla",
-         email: "Khawla@gmail.com",
-         role:{
-             role:"Antenne"
-         },
-         antenne:{
-             id:1,
-             abreviation:"AAA"
-         }
+    const onChange=()=>{
+        setReload(!reload)
     }
 
     return (
@@ -56,10 +48,10 @@ export default function Account() {
                      <AccountDetail user={data}></AccountDetail>
                  </div>
                  <div className="col-md-8 mt-4 col-12">
-                    <AccountEdit user={data}></AccountEdit>
+                    <AccountEdit user={data} onChange={onChange}></AccountEdit>
                  </div>
                  <div className="col-12 my-3">
-                     <UpdatePassword></UpdatePassword>
+                     <UpdatePassword ></UpdatePassword>
                  </div>
              </div>
                 :null}
