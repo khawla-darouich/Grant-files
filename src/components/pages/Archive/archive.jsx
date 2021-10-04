@@ -8,7 +8,7 @@ import { useState,useEffect } from 'react';
 
 import {BsInbox,BsFolderPlus,BsInboxFill} from "react-icons/bs";
 import axios from 'axios';
-export default function DossierAReceptionner() {
+export default function Archive() {
     const [reload,setReload]=useState(true);
     const [data,setData]= useState([]);
     function formatDate(date) {
@@ -41,9 +41,11 @@ export default function DossierAReceptionner() {
           res=>{
               const data=res.data;
              const Dossiers=[];
+             const dossierSet=new Set();
              data.forEach(element => {
                 
-                if((currUser.roles[0].role==="GUC" && element.etape.designation==="approbation" && element.historique.emplacement.designation==="Antenne" && element.historique.dossier.envoyer===true)
+                if(element.etape.designation==="Archive")
+                {if((currUser.roles[0].role==="GUC" && element.etape.designation==="approbation" && element.historique.emplacement.designation==="Antenne" && element.historique.dossier.envoyer===true)
                     || (currUser.roles[0].role==="COMISSION" && element.etape.designation==="approbation" && element.historique.emplacement.designation==="Guichet unique central" && element.historique.dossier.envoyer===true) 
                     || (currUser.roles[0].role==="ADA" && element.etape.designation==="realisation" && element.historique.emplacement.designation==="Commission" && element.historique.dossier.envoyer===true) 
                     || (currUser.roles[0].role==="GUC" && element.etape.designation==="realisation" && element.historique.emplacement.designation==="Antenne" && element.historique.dossier.envoyer===true) 
@@ -68,11 +70,14 @@ export default function DossierAReceptionner() {
                         dateDepot:formatDate(element.historique.dossier.dateCreation),
                         postulant:element.historique.dossier.agriculteur.nom+" "+element.historique.dossier.agriculteur.prenom, 
                     }
+                    dossierSet.add(obj);
                     Dossiers.push(obj);
-                }
+                }}
                  
           });
-          setData(Dossiers);
+          console.log("dossierSet")
+          console.log(dossierSet)
+          setData(dossierSet);
           },
           err=>{})
        })
@@ -84,7 +89,7 @@ export default function DossierAReceptionner() {
         <Page>
             
             <div className="row mt-1 px-2">
-                            <h5 className={``}> <BsInboxFill style={{fontSize:25}} /> Dossier à réceptionner</h5>   
+                            <h5 className={``}> <BsInboxFill style={{fontSize:25}} /> Archive </h5>   
                                 <hr></hr>
                         </div>
            

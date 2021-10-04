@@ -9,13 +9,24 @@ export default class DossierForm extends Component {
         super(props);
         this.state={
             input: {
-                antenne:""
+                tel:this.props.tel,
+                cda:this.props.cda,
+                rubrique:this.props.rubrique,
+                sousRubrique:this.props.sousRubrique,
+                cin:this.props.cin,
+                nom:this.props.nom,
+                prenom:this.props.prenom,
+                saba:this.props.saba,
+                reference:this.props.reference,
             },
-            antenne:{},
+            cin:this.props.cin,
+            antenne:"",
             rubriques:[],
             sousRubriques:[],
-            cdas:[]
+            cdas:[],
+            dossier:{}
         };
+
 
 
         const config={
@@ -24,15 +35,33 @@ export default class DossierForm extends Component {
             }
           }
 
+          if(this.props.edit===true)
+          {
+              const config={
+                headers:{
+                  Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+                }
+              }
+           
+            const url="sousRubriqueByRubrique/"+this.props.rubrique
+            
+            axios.get(url,config)
+                .then(res=>{
+                    this.setState({
+                        sousRubriques:res.data
+                    })
+                    
+                },err=>{})
+         //     const  url="detailDossier/"+this.props.id
+             
+          }
           axios.get('currentUser',config)
         .then(
             res=>{
                const user=res.data;
              this.setState({
-                     antenne:user.antenne,
-                     input:{
-                        antenne:user.antenne.abreviation
-                     }
+                     antenne:user.antenne.abreviation,
+                     
                 })
 
                 const url="cdaByAntenne/"+user.antenne.id
@@ -52,6 +81,7 @@ export default class DossierForm extends Component {
                     rubriques:res.data._embedded.rubriques
                 })
             },err=>{})
+
            
             this.refresh=this.refresh.bind(this);
             this.handleChange=this.handleChange.bind(this);
@@ -79,8 +109,6 @@ export default class DossierForm extends Component {
             input
         });
         
-        console.log("change")
-        console.log(this.state.input)
     }
     
     handleChangeRubrique()
@@ -112,8 +140,6 @@ export default class DossierForm extends Component {
 
     handleChangeAgriculteur()
     {
-        console.log("before")
-        console.log(this.state.input.cin)
         const config={
             headers:{
               Authorization : "Bearer "+localStorage.getItem("tokenAuth")
@@ -134,6 +160,7 @@ export default class DossierForm extends Component {
                     reference:this.state.input.reference,
                     cda:this.state.input.cda,
                     sousRubrique:this.state.input.sousRubrique,
+                    rubrique:this.state.input.rubrique,
                     
                 }
                 
@@ -147,12 +174,8 @@ export default class DossierForm extends Component {
     {
         this.handleChange(event);
         
-        console.log("after1")
-        console.log(this.state.input.cin)
         this.handleChangeAgriculteur();
         
-        console.log("after")
-        console.log(this.state.input.cin)
     }
 
     refresh()
@@ -179,12 +202,25 @@ export default class DossierForm extends Component {
               Authorization : "Bearer "+localStorage.getItem("tokenAuth")
             }
           }
-        if(this.state.agriculteur)
+        if(this.props.edit===true)
+        {
+            const url="agriculteurByCin/"+this.state.input.cin;
+                axios.get(url,config)
+                .then(res=>{
+                    dossier.agriculteur.id=res.data.id
+                    const url="updateDossier/"+this.props.id
+                    axios.put(url,dossier,config)
+                    .then(res=>{
+                        this.props.onSubmit();
+                    })
+                })
+        }else if(this.state.agriculteur)
         {
             dossier.agriculteur.id=this.state.agriculteur.id
             axios.post("addDossier",dossier,config)
             .then(res=>{
-                console.log(res)
+                this.props.onSubmit();
+                
             })
         }else{
             const agriculteur={
@@ -193,8 +229,6 @@ export default class DossierForm extends Component {
                 prenom:this.state.input.prenom,
                 cin:this.state.cin
             }
-            console.log("agriculteur")
-            console.log(agriculteur)
             axios.post("agriculteurs",agriculteur,config)
             .then(res=>{
                 const url="agriculteurByCin/"+agriculteur.cin;
@@ -204,24 +238,26 @@ export default class DossierForm extends Component {
                     axios.post("addDossier",dossier,config)
                     .then(res=>{
                         this.props.onSubmit();
-                        console.log(res)
                     })
                 })
             })
         }
         
      }
+
     render() {
-       
         return (
             <div>
                 <form className='px-5 pt-2 row' onSubmit={this.handleSubmit}>
                     <div className="card col-12  p-3">
                         <div className="header   d-flex col-12">
                             Informations personnelles de l'agriculteur
-                            <div className="info mx-3 float-end"> 
+                            {!this.props.id? 
+                                <div className="info mx-3 float-end"> 
                                 <CachedRounded style={{cursor:'pointer'}} onClick={this.refresh}></CachedRounded>
-                            </div>
+                                </div>      
+                            :null}
+                            
                         </div>
                         <div className="row">
                         <div className={`form-group px-3 pt-3 d-flex col-md-6 `}>
@@ -230,8 +266,7 @@ export default class DossierForm extends Component {
                                 type="text" 
                                 required 
                                 id="cin" 
-                                defaultValue={this.state.agriculteur ? this.state.agriculteur.cin : this.state.input.cin}
-                                
+                                disabled={this.props.id? true:false}
                                 value={this.state.input.cin}
                                 name="cin"
                                 placeholder="Numéro d'identité nationale" 
@@ -243,10 +278,10 @@ export default class DossierForm extends Component {
                                 <input className={`form-control`} 
                                 type="text" 
                                 required 
-                                id="tel" 
-                                defaultValue={this.state.agriculteur ? this.state.agriculteur.tel : this.state.input.tel}
+                              
+                                
                                 value={this.state.input.tel}
-                                disabled={this.state.agriculteur ? true : false}
+                                disabled={this.state.agriculteur ? true : false || this.props.id? true:false}
                                 name="tel"
                                 placeholder="Téléphone" 
                                 onChange={this.handleChange} />
@@ -258,9 +293,9 @@ export default class DossierForm extends Component {
                                 type="text" 
                                 required 
                                 id="nom" 
-                                defaultValue={this.state.agriculteur ? this.state.agriculteur.nom : this.state.input.nom}
+                                
                                 value={this.state.input.nom}
-                                disabled={this.state.agriculteur ? true : false}
+                                disabled={this.state.agriculteur ? true : false || this.props.id? true:false}
                                 name="nom"
                                 placeholder="Nom" 
                                 onChange={this.handleChange} />
@@ -272,9 +307,9 @@ export default class DossierForm extends Component {
                                 type="text" 
                                 required 
                                 id="prenom" 
-                                defaultValue={this.state.agriculteur ? this.state.agriculteur.prenom : this.state.input.prenom}
+                                
                                 value={this.state.input.prenom}
-                                disabled={this.state.agriculteur ? true : false}
+                                disabled={this.state.agriculteur ? true : false || this.props.id? true:false}
                                 name="prenom"
                                 placeholder="Prénom" 
                                 onChange={this.handleChange} />
@@ -297,7 +332,7 @@ export default class DossierForm extends Component {
                                 type="text" 
                                 required 
                                 id="saba" 
-                                defaultValue={this.props.saba ? this.props.saba : this.state.input.saba}
+                                
                                 value={this.state.input.saba}
                                 name="saba"
                                 placeholder="Saba" 
@@ -310,7 +345,7 @@ export default class DossierForm extends Component {
                                 type="text" 
                                 required 
                                 id="reference" 
-                                defaultValue={this.props.reference ? this.props.reference : this.state.input.reference}
+                                
                                 value={this.state.input.reference}
                                 name="reference"
                                 placeholder="Référence" 
@@ -323,8 +358,8 @@ export default class DossierForm extends Component {
                                 type="text" 
                                 required 
                                 id="antenne" 
-                                defaultValue={this.props.antenne ? this.props.antenne : this.state.input.antenne}
-                                value={this.state.input.antenne}
+                                
+                                value={this.state.antenne}
                                 name="antenne"
                                 placeholder="antenne" 
                                 onChange={this.handleChange}
@@ -340,8 +375,8 @@ export default class DossierForm extends Component {
                                         displayEmpty
                                         inputProps={{ 'aria-label': 'Without label' }}
                                         name="cda"
-                                        defaultValue={this.props.cda ? this.props.cda : this.state.input.cda}
-                                        value={this.state.input.cda}
+                                        value={this.state.input.cda || ''}
+                                      
                                         onChange={this.handleChange}
                                         >
                                      
@@ -365,8 +400,8 @@ export default class DossierForm extends Component {
                                         displayEmpty
                                         inputProps={{ 'aria-label': 'Without label' }}
                                         name="rubrique"
-                                        defaultValue={this.props.rubrique ? this.props.rubrique : this.state.input.rubrique}
-                                        value={this.state.input.rubrique}
+                                        value={this.state.input.rubrique || ''}
+                                        
                                         onChange={this.handleRubrique}
                                         >
                                      
@@ -390,8 +425,8 @@ export default class DossierForm extends Component {
                                         displayEmpty
                                         inputProps={{ 'aria-label': 'Without label' }}
                                         name="sousRubrique"
-                                        defaultValue={this.props.sousRubrique ? this.props.sousRubrique : this.state.input.sousRubrique}
-                                        value={this.state.input.sousRubrique}
+                                        
+                                        value={this.state.input.sousRubrique || ''}
                                         onChange={this.handleChange}
                                         >
                                      
@@ -410,7 +445,7 @@ export default class DossierForm extends Component {
                     </div>
                     <div className={`mt-1 float-end btn `}>
                            
-                        <button className="  float-end">  Créer </button> 
+                        <button className="  float-end">{!this.props.id? "Créer":"Modifier"}   </button> 
                     
                     </div>
                 </form>

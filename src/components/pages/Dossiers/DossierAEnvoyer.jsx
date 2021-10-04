@@ -13,7 +13,7 @@ export default function DossierAEnvoyer() {
     
     const [data,setData]= useState([]);
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
-
+    const [role,setRole]=useState("");
 
     const [reload,setReload]=useState(true);
     // a and b are javascript Date objects
@@ -88,16 +88,18 @@ export default function DossierAEnvoyer() {
         axios.get("currentUser",config)
         .then(res=>{
             const currUser=res.data
-         axios.get('/transactions',config)
+         axios.get('/lastTransactions',config)
          .then(
            res=>{
                const data=res.data;
+               console.log(data)
               const Dossiers=[];
               data.forEach(element => {
                  
                  if((currUser.roles[0].role==="GUC" && element.historique.emplacement.designation==="Guichet unique central" && element.historique.dossier.envoyer===false)
                      || (currUser.roles[0].role==="COMISSION" && element.etape.designation==="approbation" && element.historique.emplacement.designation==="Commission" && element.historique.dossier.envoyer===false) 
                      || (currUser.roles[0].role==="ADA" && element.historique.emplacement.designation==="Antenne" && element.historique.dossier.envoyer===false) 
+                     || (currUser.roles[0].role==="COMISSION" && element.historique.emplacement.designation==="Commission" && element.historique.dossier.envoyer===false && element.etape.designation==="realisation") 
                       )
                  {
                              let date=null;
@@ -108,6 +110,7 @@ export default function DossierAEnvoyer() {
                          date=formatDate(element.historique.date_envoi);
                          }
                      const obj={
+                        envoyer:element.historique.dossier.envoyer,
                         id:element.historique.dossier.id,
                         etape:element.etape.designation,
                         emplacement:element.historique.emplacement.designation,
@@ -125,6 +128,7 @@ export default function DossierAEnvoyer() {
            setData(Dossiers);
            },
            err=>{})
+           setRole(currUser.roles[0].role);
         })
        }, [reload]);
      
@@ -140,7 +144,7 @@ export default function DossierAEnvoyer() {
                                 <hr></hr>
                         </div>
            
-                        <HistoryList data={data} envoyer={true} onSend={handleSend}></HistoryList>
+                        <HistoryList data={data} envoyer={true} onSend={handleSend} role={role}></HistoryList>
             
             
     

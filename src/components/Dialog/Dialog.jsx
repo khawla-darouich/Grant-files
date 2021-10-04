@@ -31,7 +31,7 @@ const styles = theme => ({
       <Dialog borderRadius="50%"
         PaperProps={{ 
           style: {
-          
+            overflowX:'hidden',
             borderRadius:'10px'
           
           },

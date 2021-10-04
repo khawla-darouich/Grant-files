@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import "./sidebarAdmin.css";
-import {GroupOutlined,History,Outbox,PersonAddOutlined, StorageRounded,FolderOutlined,HomeOutlined,PersonAdd,PeopleOutline,LineStyle,Tune} from '@material-ui/icons';
+import {GroupOutlined,History,ArchiveOutlined,PersonAddOutlined, StorageRounded,FolderOutlined,HomeOutlined,PersonAdd,PeopleOutline,LineStyle,Tune} from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import {BsInbox,BsFolderPlus,BsBoxArrowRight} from "react-icons/bs";
 
@@ -49,6 +49,11 @@ export default class  SidebarUser extends Component {
             </div>
             <div className="sidebarMenu">
                   <h3 className="sidebarTitle" style={{cursor:"pointer"}}><Link to="/dossiers" className="link" > <StorageRounded className="sidebarIcon"/>Tous les dossiers</Link></h3> 
+                  
+            </div>
+            
+            <div className="sidebarMenu">
+                  <h3 className="sidebarTitle" style={{cursor:"pointer"}}><Link to="/archive" className="link" > <ArchiveOutlined className="sidebarIcon"/>Archive</Link></h3> 
                   
             </div>
             <hr style={{ color:'#5aacd0'}}></hr>

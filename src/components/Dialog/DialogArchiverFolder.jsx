@@ -7,8 +7,8 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from 'axios';
-import {CloseRounded} from '@material-ui/icons';
-export default function DialogDelete(props) {
+import {CloseRounded,ArchiveRounded} from '@material-ui/icons';
+export default function DialogArchiverFolder(props) {
 
     const [open, setOpen] = React.useState(false);
 
@@ -21,13 +21,13 @@ export default function DialogDelete(props) {
     };
   
     const handleDelete= () =>{
-      const config={
-        headers:{
-          Authorization : "Bearer "+localStorage.getItem("tokenAuth")
-        }
-      }
-        let url="users/"+props.id
-          axios.delete(url,config).then(res=>{
+        const config={
+            headers:{
+              Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+            }
+          }
+        let url="archiverDossier/"+props.id
+          axios.post(url,null,config).then(res=>{
               console.log("done")
               
               props.reload();
@@ -35,17 +35,17 @@ export default function DialogDelete(props) {
           }, err=>{console.log("undone")})
     }
     return (
-        <Dialog action="supprimer"  open={open} handleClose={handleClose} handleClickOpen={handleClickOpen}> 
+        <Dialog action="Archiver"  open={open} handleClose={handleClose} handleClickOpen={handleClickOpen}> 
              <DialogTitle id="alert-dialog-title"  style={{ backgroundColor:" #2d8bb4 " ,height:54, color:"#FFF", fontSize:18}}>
-          {" Supprimer "} <div className="float-end"><CloseRounded onClick={handleClose} style={{fontSize:30 , cursor:'pointer'}}></CloseRounded></div>
+          {" Archiver "} <div className="float-end"><CloseRounded onClick={handleClose} style={{fontSize:30 , cursor:'pointer'}}></CloseRounded></div>
         </DialogTitle>
         <DialogContent className="mt-4">
           <DialogContentText id="alert-dialog-description" style={{  color:"#000"}}>
-           Voulez-vous supprimer    <strong className=""> {props.nom} {props.prenom} </strong> 
+           Voulez-vous Archivez  le dossier  <strong className=""> {props.saba} </strong> 
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button  onClick={handleDelete}>supprimer</Button>
+          <Button  onClick={handleDelete}><ArchiveRounded/> Archiver</Button>
           
           </DialogActions>
         </Dialog>

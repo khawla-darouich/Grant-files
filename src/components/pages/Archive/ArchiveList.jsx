@@ -27,17 +27,6 @@ export default function DossiersList(props) {
       
     
     const columns = [
-        { field: 'etat', headerName: 'Etat',sortable: false,  headerClassName: 'super-app-theme--header',
-            renderCell: (params)=>{
-              if(params.row.etat==true)
-              {
-                return <ArrowForwardRounded style={{color:'red'}}></ArrowForwardRounded>
-              }
-              else{
-                return <ArrowBackRounded style={{color:'green'}}></ArrowBackRounded>
-              }
-          } 
-        },
         { field: 'emplacement',sortable: false, headerName: 'Emplacement', width: 140 ,headerClassName: 'super-app-theme--header' },
         { field: 'cda',sortable: false, headerName: 'Cda', width: 100 ,headerClassName: 'super-app-theme--header' },
         { field: 'saba', headerName: 'Saba', width: 150 ,headerClassName: 'super-app-theme--header' },

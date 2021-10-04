@@ -29,7 +29,7 @@ export default function HistoryList(props) {
 
       const envoyer=()=>{
         console.log("props.envoyer")
-        console.log(props.envoyer)
+        console.log(props.role)
         return props.envoyer;
       }
      
@@ -40,8 +40,10 @@ export default function HistoryList(props) {
               {
                 return <div style={{color:'#304954', fontWeight:"bold"}}>A</div>
               }
-              else{
+              else if(params.row.etape==="realisation"){
                 return <div style={{color:'#5aacd0', fontWeight:"bold"}}>R</div>
+              }else {
+                return <div style={{color:'#5aeed0', fontWeight:"bold"}}>AR</div>
               }
           } 
         },
@@ -77,9 +79,14 @@ export default function HistoryList(props) {
         { field: 'action',  headerName: 'Envoyer', width: 130 ,headerClassName: 'super-app-theme--header',
           hide:!envoyer() ,
           renderCell: (params)=>{
-            return <div className=" px-3">
-              <DialogSend saba={params.row.saba} id={params.row.id} onSend={props.onSend}/>
-            </div> 
+
+            return (
+              <div className="actions">
+                  <CustomizedMenu role={props.role} send={params.row.envoyer} etape={params.row.etape} emplacement={params.row.emplacement} saba={params.row.saba} id={params.row.id} onSend={props.onSend} envoyer={props.envoyer? true:false} >
+
+                  </CustomizedMenu>
+              </div>
+           ); 
         }
           
             
@@ -135,8 +142,8 @@ export default function HistoryList(props) {
                         className={classes.root}
                             rows={props.data}
                             columns={columns}
-                            pageSize={8}
-                            rowsPerPageOptions={[8]}
+                            pageSize={7}
+                            rowsPerPageOptions={[7]}
                             checkboxSelection
                             style={{ backgroundColor: "#FFF"}}
                             components={{

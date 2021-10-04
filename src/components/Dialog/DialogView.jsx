@@ -27,15 +27,7 @@ export default function DialogView(props) {
     setOpen(false);
   };
 
-  const handleDelete= () =>{
-      let url="users/"+props.id
-        axios.delete(url).then(res=>{
-            console.log("done")
-            handleClose();
-            props.reload();
-            console.log("done")
-        }, err=>{console.log("undone")})
-  }
+
 
   return (
 

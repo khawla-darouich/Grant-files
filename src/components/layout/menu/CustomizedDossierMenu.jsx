@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-import { Edit,DeleteRounded,ArrowBackOutlined,MoreVertSharp,VisibilityRounded } from '@material-ui/icons';
+import {ArchiveRounded, SendRounded,DeleteRounded,ArrowBackOutlined,MoreVertSharp,VisibilityRounded,Edit } from '@material-ui/icons';
 import BackDrop from '../Backdrop';
 import { useState } from 'react';
 import Modal from '../Modal';
@@ -14,6 +14,11 @@ import DialogEdit from '../../Dialog/DialogEdit';
 import DialogDelete from '../../Dialog/DialogDelete';
 import DialogView from '../../Dialog/DialogView';
 import {BsInbox,BsFolderPlus,BsBoxArrowInLeft} from "react-icons/bs";
+import DialogSend from '../../Dialog/DialogSend';
+import DialogDeleteFolder from '../../Dialog/DialogDeleteFolder';
+import DialogEditFolder from '../../Dialog/DialogEditFolder';
+import DialogRecieve from '../../Dialog/DialogRecieve';
+import DialogArchiverFolder from '../../Dialog/DialogArchiverFolder';
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -70,7 +75,7 @@ export default function CustomizedMenu(props) {
     console.log("hey")
     setModalIsOpen(false);
 }
-
+console.log(props)
 
   return (
     <div >
@@ -102,19 +107,48 @@ export default function CustomizedMenu(props) {
         
         {props.receptionner===true?
           
-          <MenuItem onClick={handleClose} disableRipple>
+          <MenuItem  disableRipple>
           <ArrowBackOutlined  />
-              Récéptionner
+              <DialogRecieve saba={props.saba} id={props.id} onSend={props.onSend}></DialogRecieve>
           </MenuItem>
          
            :
-           <MenuItem  disableRipple>
+           null
+        }
+        {(props.envoyer===true && !(props.role==="COMISSION" && props.etape==="realisation"))?
+          <MenuItem disableRipple>
+          <SendRounded></SendRounded>
+        <DialogSend saba={props.saba} id={props.id} onSend={props.onSend}/>
+        </MenuItem>:
+        null
+        }
+
+        {props.envoyer===true?props.etape==="approbation"?props.emplacement==="Antenne"?
+          <div>
+            <MenuItem  disableRipple>
           <DeleteRounded />
-          <DialogDelete nom={props.nom} prenom={props.prenom} id={props.id}  reload={handleDelete} /> 
+          <DialogDeleteFolder saba={props.saba} id={props.id}  reload={props.onSend} /> 
           
         </MenuItem>
+        <MenuItem disableRipple>
+        <Edit />
+        <DialogEditFolder reload={props.onSend} id={props.id}  ></DialogEditFolder>
+      </MenuItem>
+          </div>:
+        null :null:null
+
         }
-        
+        {props.envoyer===true?props.role==="COMISSION"?props.etape==="realisation"?props.emplacement==="Commission"?props.send===false?
+         
+          
+        <MenuItem disableRipple>
+        <ArchiveRounded />
+        <DialogArchiverFolder  saba={props.saba} id={props.id}  reload={props.onSend} ></DialogArchiverFolder>
+      </MenuItem>
+          :
+        null :null:null:null:null
+
+        }
       </StyledMenu>
     </div>
   );

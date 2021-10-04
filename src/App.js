@@ -25,6 +25,7 @@ import PrivateRoute from './components/HOC/PrivateRoute';
 import NewDossier from './components/pages/Dossiers/NewDossier';
 import DossierAReceptionner from './components/pages/Dossiers/DossierAReceptionner';
 import DossierAEnvoyer from './components/pages/Dossiers/DossierAEnvoyer';
+import Archive from './components/pages/Archive/archive';
 export default class App extends Component {
   state={};
    
@@ -88,6 +89,7 @@ export default class App extends Component {
             <PrivateRoute path='/dossiers' component={Dossiers} />
             <PrivateRoute path='/nouveauUtilisateur' component={NewUser} />
             <PrivateRoute path='/historique' component={History} />
+            <PrivateRoute path='/archive' component={Archive} />
             <PrivateRoute path='/account' component={Account} />
             <PrivateRoute path='/aReceptionner' component={DossierAReceptionner} />
             <PrivateRoute path='/aEnvoyer' component={DossierAEnvoyer} />
@@ -114,3 +116,5 @@ export default class App extends Component {
 
 
 
+
+<PrivateRoute path='/historique' component={History} />

@@ -39,7 +39,7 @@ export default function DialogSend(props) {
         })
     }
     return (
-        <Dialog action={ <SendRounded className="send "  />}  open={open} handleClose={handleClose} handleClickOpen={handleClickOpen}> 
+        <Dialog action={"Envoyer"}  open={open} handleClose={handleClose} handleClickOpen={handleClickOpen}> 
              <DialogTitle id="alert-dialog-title"  style={{ backgroundColor:" #2d8bb4 " ,height:54, color:"#FFF", fontSize:18}}>
             {"Envoyer le dossier"}
           <div className="float-end"><CloseRounded onClick={handleClose} style={{fontSize:30 , cursor:'pointer'}}></CloseRounded></div>

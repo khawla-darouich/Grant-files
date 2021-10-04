@@ -88,7 +88,8 @@ export default function History() {
             const data=res.data;
            const Dossiers=[];
            data.forEach(element => {
-               let date=null;
+            if(!element.etape.designation==="Archive")  
+            { let date=null;
 
                if(!element.historique.date_envoi)
                {
@@ -110,7 +111,7 @@ export default function History() {
                
               
             }
-            Dossiers.push(obj);
+            Dossiers.push(obj);}
         });
         setData(Dossiers);
         },

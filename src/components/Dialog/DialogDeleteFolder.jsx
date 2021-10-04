@@ -8,7 +8,7 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import axios from 'axios';
 import {CloseRounded} from '@material-ui/icons';
-export default function DialogDelete(props) {
+export default function DialogDeleteFolder(props) {
 
     const [open, setOpen] = React.useState(false);
 
@@ -21,12 +21,12 @@ export default function DialogDelete(props) {
     };
   
     const handleDelete= () =>{
-      const config={
-        headers:{
-          Authorization : "Bearer "+localStorage.getItem("tokenAuth")
-        }
-      }
-        let url="users/"+props.id
+        const config={
+            headers:{
+              Authorization : "Bearer "+localStorage.getItem("tokenAuth")
+            }
+          }
+        let url="deleteDossier/"+props.id
           axios.delete(url,config).then(res=>{
               console.log("done")
               
@@ -41,7 +41,7 @@ export default function DialogDelete(props) {
         </DialogTitle>
         <DialogContent className="mt-4">
           <DialogContentText id="alert-dialog-description" style={{  color:"#000"}}>
-           Voulez-vous supprimer    <strong className=""> {props.nom} {props.prenom} </strong> 
+           Voulez-vous supprimer  le dossier  <strong className=""> {props.saba} </strong> 
           </DialogContentText>
         </DialogContent>
         <DialogActions>
