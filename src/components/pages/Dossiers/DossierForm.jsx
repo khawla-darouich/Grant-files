@@ -83,7 +83,8 @@ export default class DossierForm extends Component {
             },err=>{})
 
            
-            this.refresh=this.refresh.bind(this);
+            this.refreshAgr=this.refreshAgr.bind(this);
+            this.refreshD=this.refreshD.bind(this);
             this.handleChange=this.handleChange.bind(this);
             this.handleChangeRubrique=this.handleChangeRubrique.bind(this);
             this.handleRubrique=this.handleRubrique.bind(this);
@@ -178,12 +179,38 @@ export default class DossierForm extends Component {
         
     }
 
-    refresh()
+    refreshAgr()
     {
         this.setState({
             input: {
-               
-            }
+                tel:"",
+                cda:this.state.input.cda,
+                rubrique:this.state.input.rubrique,
+                sousRubrique:this.state.input.sousRubrique,
+                cin:"",
+                nom:"",
+                prenom:"",
+                saba:this.state.input.saba,
+                reference:this.state.input.reference,
+            },
+            cin:"",
+        });
+    }
+    refreshD()
+    {
+        this.setState({
+            input: {
+                tel:this.state.input.tel,
+                cda:"",
+                rubrique:"",
+                sousRubrique:"",
+                cin:this.state.input.cin,
+                nom:this.state.input.nom,
+                prenom:this.state.input.prenom,
+                saba:"",
+                reference:"",
+            },
+            cin:this.state.cin,
         });
     }
 
@@ -254,7 +281,7 @@ export default class DossierForm extends Component {
                             Informations personnelles de l'agriculteur
                             {!this.props.id? 
                                 <div className="info mx-3 float-end"> 
-                                <CachedRounded style={{cursor:'pointer'}} onClick={this.refresh}></CachedRounded>
+                                <CachedRounded style={{cursor:'pointer'}} onClick={this.refreshAgr}></CachedRounded>
                                 </div>      
                             :null}
                             
@@ -322,7 +349,7 @@ export default class DossierForm extends Component {
                         <div className="header   d-flex col-12">
                             Informations de dossier
                             <div className="info mx-3 float-end"> 
-                                <CachedRounded style={{cursor:'pointer'}} onClick={this.refresh}></CachedRounded>
+                                <CachedRounded style={{cursor:'pointer'}} onClick={this.refreshD}></CachedRounded>
                             </div>
                         </div>
                         <div className="row">

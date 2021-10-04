@@ -10,7 +10,7 @@ import { useState,useEffect } from 'react';
 import {  makeStyles } from '@mui/styles';
 import CustomizedMenu from '../../layout/menu/CustomizedDossierMenu';
 import {GroupOutlined,ArrowBackRounded,ArrowForwardRounded,KeyboardArrowDownRounded,FolderOutlined} from '@material-ui/icons';
-export default function DossiersList(props) {
+export default function ArchiveList(props) {
 
 
     function CustomToolbar() {
@@ -27,11 +27,12 @@ export default function DossiersList(props) {
       
     
     const columns = [
-        { field: 'emplacement',sortable: false, headerName: 'Emplacement', width: 140 ,headerClassName: 'super-app-theme--header' },
+        { field: 'reference',sortable: false, headerName: 'Référence', width: 120 ,headerClassName: 'super-app-theme--header' },
         { field: 'cda',sortable: false, headerName: 'Cda', width: 100 ,headerClassName: 'super-app-theme--header' },
         { field: 'saba', headerName: 'Saba', width: 150 ,headerClassName: 'super-app-theme--header' },
         { field: 'dateDepot', headerName: 'Date dépôt', width: 150 ,headerClassName: 'super-app-theme--header' },
         { field: 'postulant',  headerName: 'Postulant', width: 140 ,headerClassName: 'super-app-theme--header' },
+        { field: 'sousRubrique',sortable: false,  headerName: 'Sous-rubrique', width: 150 ,headerClassName: 'super-app-theme--header' },
         { field: 'actions',
          headerName:"Actions",
          width:110,
@@ -40,7 +41,7 @@ export default function DossiersList(props) {
           
              return (
                 <div className="actions">
-                    <CustomizedMenu saba={params.row.saba} id={params.row.id} onSend={props.onSend} receptionner={props.receptionner? true:false}  >
+                    <CustomizedMenu saba={params.row.saba} id={params.row.id} onSend={props.onSend}   >
 
                     </CustomizedMenu>
                 </div>
@@ -97,9 +98,8 @@ export default function DossiersList(props) {
                         className={classes.root}
                             rows={props.data}
                             columns={columns}
-                            pageSize={8}
-                            rowsPerPageOptions={[8]}
-                            checkboxSelection
+                            pageSize={7}
+                            rowsPerPageOptions={[7]}
                             style={{ backgroundColor: "#FFF"}}
                             components={{
                                 Toolbar: CustomToolbar,

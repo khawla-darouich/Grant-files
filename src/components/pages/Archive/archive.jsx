@@ -1,13 +1,14 @@
 import React from 'react'
-import "./dossiers.css"
+import "../Dossiers/dossiers.css"
 import Dialog from '../../Dialog/Dialog'
 import { PeopleRounded } from '@material-ui/icons';
 import Page from '../../layout/Page';
-import DossiersList from './DossiersList';
-import { useState,useEffect } from 'react';
 
+import { useState,useEffect } from 'react';
+import DossiersList from '../Dossiers/DossiersList';
 import {BsInbox,BsFolderPlus,BsInboxFill} from "react-icons/bs";
 import axios from 'axios';
+import ArchiveList from './ArchiveList';
 export default function Archive() {
     const [reload,setReload]=useState(true);
     const [data,setData]= useState([]);
@@ -40,17 +41,11 @@ export default function Archive() {
         .then(
           res=>{
               const data=res.data;
+              console.log(res.data)
              const Dossiers=[];
-             const dossierSet=new Set();
              data.forEach(element => {
                 
                 if(element.etape.designation==="Archive")
-                {if((currUser.roles[0].role==="GUC" && element.etape.designation==="approbation" && element.historique.emplacement.designation==="Antenne" && element.historique.dossier.envoyer===true)
-                    || (currUser.roles[0].role==="COMISSION" && element.etape.designation==="approbation" && element.historique.emplacement.designation==="Guichet unique central" && element.historique.dossier.envoyer===true) 
-                    || (currUser.roles[0].role==="ADA" && element.etape.designation==="realisation" && element.historique.emplacement.designation==="Commission" && element.historique.dossier.envoyer===true) 
-                    || (currUser.roles[0].role==="GUC" && element.etape.designation==="realisation" && element.historique.emplacement.designation==="Antenne" && element.historique.dossier.envoyer===true) 
-                    || (currUser.roles[0].role==="COMISSION" && element.etape.designation==="realisation" && element.historique.emplacement.designation==="Guichet unique central" && element.historique.dossier.envoyer===true) 
-                    )
                 {
                             
                             let date=null;
@@ -67,17 +62,16 @@ export default function Archive() {
                         cda:element.historique.dossier.cda.description,
                         saba:element.historique.dossier.saba,
                         reference:element.historique.dossier.reference,
+                        sousRubrique:element.historique.dossier.sousRubrique.designation,
+                        reference:element.historique.dossier.reference,
                         dateDepot:formatDate(element.historique.dossier.dateCreation),
                         postulant:element.historique.dossier.agriculteur.nom+" "+element.historique.dossier.agriculteur.prenom, 
                     }
-                    dossierSet.add(obj);
                     Dossiers.push(obj);
-                }}
+                }
                  
           });
-          console.log("dossierSet")
-          console.log(dossierSet)
-          setData(dossierSet);
+          setData(Dossiers);
           },
           err=>{})
        })
@@ -89,11 +83,11 @@ export default function Archive() {
         <Page>
             
             <div className="row mt-1 px-2">
-                            <h5 className={``}> <BsInboxFill style={{fontSize:25}} /> Archive </h5>   
+                            <h5 className={``}> <BsInboxFill style={{fontSize:25}} /> Archive</h5>   
                                 <hr></hr>
                         </div>
            
-                   <DossiersList data={data} receptionner={true} onSend={handleSend}></DossiersList>
+                   <ArchiveList data={data}  onSend={handleSend}></ArchiveList>
             
     
         

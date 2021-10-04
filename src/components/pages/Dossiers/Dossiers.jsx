@@ -29,28 +29,40 @@ export default function Dossiers() {
       }
 
       useEffect(() => {
-      axios.get('/dossiersList',config)
-      .then(
-        res=>{
-            const data=res.data;
-           const Dossiers=[];
-           data.forEach(element => {
-               
-            const obj={
-                id:element.dossier.id,
-                etat:element.dossier.envoyer,
-                emplacement:element.emplacement.designation,
-                cda:element.dossier.cda.description,
-                saba:element.dossier.saba,
-                reference:element.dossier.reference,
-                dateDepot:formatDate(element.dossier.dateCreation),
-                postulant:element.dossier.agriculteur.nom+" "+element.dossier.agriculteur.prenom, 
-            }
-            Dossiers.push(obj);
-        });
-        setData(Dossiers);
-        },
-        err=>{})
+        axios.get('/lastTransactions',config)
+        .then(
+          res=>{
+              const data=res.data;
+             const Dossiers=[];
+             data.forEach(element => {
+                
+                if(element.etape.designation!="Archive")
+                {
+                            
+                            let date=null;
+                        if(!element.historique.date_envoi)
+                        {
+                        date="---"
+                        }else{
+                        date=formatDate(element.historique.date_envoi);
+                        }
+                    const obj={
+                        id:element.historique.dossier.id,
+                        etat:element.historique.dossier.envoyer,
+                        emplacement:element.historique.emplacement.designation,
+                        cda:element.historique.dossier.cda.description,
+                        saba:element.historique.dossier.saba,
+                        reference:element.historique.dossier.reference,
+                        dateDepot:formatDate(element.historique.dossier.dateCreation),
+                        postulant:element.historique.dossier.agriculteur.nom+" "+element.historique.dossier.agriculteur.prenom, 
+                    }
+                    Dossiers.push(obj);
+                }
+                 
+          });
+          setData(Dossiers);
+          },
+          err=>{})
     }, [reload]);
       
 

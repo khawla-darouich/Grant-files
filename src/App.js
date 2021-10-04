@@ -26,6 +26,7 @@ import NewDossier from './components/pages/Dossiers/NewDossier';
 import DossierAReceptionner from './components/pages/Dossiers/DossierAReceptionner';
 import DossierAEnvoyer from './components/pages/Dossiers/DossierAEnvoyer';
 import Archive from './components/pages/Archive/archive';
+import ResponsiveDrawer from './components/Sidebar/ResponsiveDrawer';
 export default class App extends Component {
   state={};
    
@@ -71,13 +72,12 @@ export default class App extends Component {
     let classes=this.state.isAuthenticated? "app-container":"app"
      return (
       <div>
-         {this.state.isAuthenticated?
-         <Topbar isAuthenticated={this.state.isAuthenticated} onAuth={(auth) => this.setState({isAuthenticated: auth})} ></Topbar>
-         :null}
+         
 
         <div className={classes}>
         {this.state.isAuthenticated?
-          <Sidebar user={this.state.user}></Sidebar>
+        <ResponsiveDrawer user={this.state.user} isAuthenticated={this.state.isAuthenticated} onAuth={(auth) => this.setState({isAuthenticated: auth})}></ResponsiveDrawer>
+          
           :null}
           <Switch>
             

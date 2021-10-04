@@ -8,6 +8,8 @@ export default function FeaturedInfo() {
     const [nbDossiers,setNbDossiers]= useState(0);
     const [nbUsers,setNbUsers]= useState(0);
     const [nbApp,setNbApp]= useState(0);
+    const [nbR,setNbR]= useState(0);
+    const [nbAR,setNbAR]= useState(0);
     const [nbRetard,setNbRetard]=useState(0);
     const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
@@ -63,13 +65,21 @@ export default function FeaturedInfo() {
           res=>{
               const data=res.data;
              setNbDossiers(data.length);  
-             let cmpt=0;
+             let cmptA=0;
+             let cmptR=0;
+             let cmptAR=0;
              data.forEach(element => {
                 
                  if(element.etape.designation==="approbation")
-                  cmpt++;
+                 cmptA++;
+                 else if(element.etape.designation==="realisation")
+                 cmptR++;
+                 else if(element.etape.designation==="Archive")
+                 cmptAR++;
           });
-          setNbApp(cmpt)
+          setNbApp(cmptA);
+          setNbR(cmptR);
+          setNbAR(cmptAR);
           axios.get("/UsersList",config)
           .then(res=>{
               setNbUsers(res.data.length)
@@ -130,7 +140,7 @@ export default function FeaturedInfo() {
             <div className="featuredItem bg-white r  row">
                 <div className="featuredIcon col-md-4 col-12"><ArchiveOutlined style={{ fontSize: 40, color:"#7de5ff" }}/> </div>
                 <div className="featuredContainer col-12 col-md-8 text-center">
-                    <div className="featuredNumber">46</div>
+                    <div className="featuredNumber">{nbAR}</div>
                     Dossiers Archivés
 
                 </div>
@@ -151,7 +161,7 @@ export default function FeaturedInfo() {
             <div className="featuredItem bg-white ss  row">
                 <div className="featuredIcon  col-12 col-md-4"><VerifiedUserOutlined style={{ fontSize: 40, color:"#9cffa4" }}/> </div>
                 <div className="featuredContainer col-12 col-md-8 text-center">
-                    <div className="featuredNumber">{nbDossiers-nbApp}</div>
+                    <div className="featuredNumber">{nbR}</div>
                     Dossiers en réalisation
 
                 </div>
@@ -162,3 +172,4 @@ export default function FeaturedInfo() {
         </div>
     )
 }
+
