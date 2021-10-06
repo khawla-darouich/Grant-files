@@ -66,24 +66,32 @@ export default function DossierDetail(props) {
               <div className="mx-2" ><small> <strong>N° téléphone : </strong> {dossier.agriculteur.tel  }</small> </div>
               <div className="mx-2" ><small> <strong>CIN : </strong> {dossier.agriculteur.cin  }</small> </div>
                </div>
-               <hr/>
                
-               <div className=" p-2">
-               <div  ><strong className="textBlue">Notes: </strong> 
-               {
-                    notes.map((note)=>(
-                                                   
-                        
-                           <div><hr className="mx-4" />
-                        <div className="mx-3" ><small> <strong>objet : </strong> {note.objet}</small> </div>
-                        <div className="mx-3" ><small> <strong>Note : </strong> {note.note}</small> </div>
-                        
-                           </div>
+               
+               {notes.length>0?
+                   <div  >
+                       <strong className="textBlue">Notes: </strong> 
+                        <div className=" px-2 ">
+                        <div className="note mt-1 p-2 card">
+                        {
+                                notes.map((note)=>(
+                                                            
+                                    
+                                    <div>
+                                    <div className="mx-3" ><small> <strong>objet : </strong> {note.objet}</small> </div>
+                                    <div className="mx-3" ><small> <strong>Note : </strong> {note.note}</small> </div>
+                                    <hr className="mx-4" />
+                                    </div>
 
-                        ))
+                                    ))
+                        }
+                        </div>
+                        </div>
+                        </div>
+               
+               :null
                }
-               </div>
-               </div>
+
                 </div> : <div></div>
 
               }

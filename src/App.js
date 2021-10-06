@@ -71,7 +71,7 @@ export default class App extends Component {
   {
     let classes=this.state.isAuthenticated? "app-container":"app"
      return (
-      <Scrollbars style={{ width: "100%", height: "100%" }}>
+      
       <div>
          
 
@@ -101,7 +101,6 @@ export default class App extends Component {
         </div>
         
       </div>
-      </Scrollbars>
     /*<Layout>
       <Switch>
         <Route path='/' exact component=  {() => <Dashboard user={this.state.user}  setUser={this.setUser}/> }></Route>
