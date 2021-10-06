@@ -45,7 +45,7 @@ export default function DossierAReceptionner() {
                 
                 if((currUser.roles[0].role==="GUC" && element.etape.designation==="approbation" && element.historique.emplacement.designation==="Antenne" && element.historique.dossier.envoyer===true)
                     || (currUser.roles[0].role==="COMISSION" && element.etape.designation==="approbation" && element.historique.emplacement.designation==="Guichet unique central" && element.historique.dossier.envoyer===true) 
-                    || (currUser.roles[0].role==="ADA" && element.etape.designation==="realisation" && element.historique.emplacement.designation==="Commission" && element.historique.dossier.envoyer===true) 
+                    || (currUser.roles[0].role==="ADA" && currUser.antenne.abreviation===element.historique.dossier.cda.antenne.abreviation && element.etape.designation==="realisation" && element.historique.emplacement.designation==="Commission" && element.historique.dossier.envoyer===true) 
                     || (currUser.roles[0].role==="GUC" && element.etape.designation==="realisation" && element.historique.emplacement.designation==="Antenne" && element.historique.dossier.envoyer===true) 
                     || (currUser.roles[0].role==="COMISSION" && element.etape.designation==="realisation" && element.historique.emplacement.designation==="Guichet unique central" && element.historique.dossier.envoyer===true) 
                     )

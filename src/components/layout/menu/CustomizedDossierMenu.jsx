@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Divider from '@mui/material/Divider';
-import {ArchiveRounded, SendRounded,DeleteRounded,ArrowBackOutlined,MoreVertSharp,VisibilityRounded,Edit } from '@material-ui/icons';
+import {ArchiveRounded, SendRounded,DeleteRounded,ArrowBackOutlined,MoreVertSharp,VisibilityRounded,Edit,NoteAdd } from '@material-ui/icons';
 import BackDrop from '../Backdrop';
 import { useState } from 'react';
 import Modal from '../Modal';
@@ -19,6 +19,7 @@ import DialogDeleteFolder from '../../Dialog/DialogDeleteFolder';
 import DialogEditFolder from '../../Dialog/DialogEditFolder';
 import DialogRecieve from '../../Dialog/DialogRecieve';
 import DialogArchiverFolder from '../../Dialog/DialogArchiverFolder';
+import DialogNote from '../../Dialog/DialogNote';
 const StyledMenu = styled((props) => (
   <Menu
     elevation={0}
@@ -122,7 +123,13 @@ console.log(props)
         </MenuItem>:
         null
         }
-
+        {(props.envoyer===true && (props.role==="COMISSION" || props.role==="GUC"))?
+          <MenuItem disableRipple>
+          <NoteAdd></NoteAdd>
+        <DialogNote id={props.id}/>
+        </MenuItem>:
+        null
+        }
         {props.envoyer===true?props.etape==="approbation"?props.emplacement==="Antenne"?
           <div>
             <MenuItem  disableRipple>

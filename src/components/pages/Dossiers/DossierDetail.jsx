@@ -5,7 +5,8 @@ export default function DossierDetail(props) {
 
     const [dossier,setDossier]=useState({});
     const [data,setData]=useState(false)
-
+    const [notes,setNotes]=useState([]);
+    let cmp=0;
     const config={
         headers:{
           Authorization : "Bearer "+localStorage.getItem("tokenAuth")
@@ -19,6 +20,9 @@ export default function DossierDetail(props) {
             console.log(obj)
             setDossier(res.data)
             setData(true)
+            console.log(res.data)
+            setNotes(res.data.notes)
+            
             console.log(window.location.href)
         },err=>{})
         
@@ -62,6 +66,24 @@ export default function DossierDetail(props) {
               <div className="mx-2" ><small> <strong>N° téléphone : </strong> {dossier.agriculteur.tel  }</small> </div>
               <div className="mx-2" ><small> <strong>CIN : </strong> {dossier.agriculteur.cin  }</small> </div>
                </div>
+               <hr/>
+               
+               <div className=" p-2">
+               <div  ><strong className="textBlue">Notes: </strong> 
+               {
+                    notes.map((note)=>(
+                                                   
+                        
+                           <div><hr className="mx-4" />
+                        <div className="mx-3" ><small> <strong>objet : </strong> {note.objet}</small> </div>
+                        <div className="mx-3" ><small> <strong>Note : </strong> {note.note}</small> </div>
+                        
+                           </div>
+
+                        ))
+               }
+               </div>
+               </div>
                 </div> : <div></div>
 
               }
@@ -75,3 +97,4 @@ export default function DossierDetail(props) {
         </div>
     )
 }
+

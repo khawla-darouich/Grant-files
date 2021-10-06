@@ -39,7 +39,7 @@ export default function DialogRecieve(props) {
         })
     }
     return (
-        <Dialog action={"Envoyer"}  open={open} handleClose={handleClose} handleClickOpen={handleClickOpen}> 
+        <Dialog action={"Récéptionner"}  open={open} handleClose={handleClose} handleClickOpen={handleClickOpen}> 
              <DialogTitle id="alert-dialog-title"  style={{ backgroundColor:" #2d8bb4 " ,height:54, color:"#FFF", fontSize:18}}>
             {"Récéptionner le dossier"}
           <div className="float-end"><CloseRounded onClick={handleClose} style={{fontSize:30 , cursor:'pointer'}}></CloseRounded></div>
@@ -47,7 +47,7 @@ export default function DialogRecieve(props) {
         <DialogContent className="mt-4">
           <DialogContentText id="alert-dialog-description" style={{  color:"#000"}}>
            Voulez-vous Récéptionner le dossier 
-               <strong className=""> {props.saba}  </strong> 
+               <strong className="text-info"> {props.saba}  </strong> 
           </DialogContentText>
         </DialogContent>
         <DialogActions>

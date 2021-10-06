@@ -37,7 +37,7 @@ export default class  SidebarUser extends Component {
             <div className="sidebarMenu">
                   <h3 className="sidebarTitle"><GroupOutlined className="sidebarIcon"/> Gestion des dossiers</h3> 
                   <ul className="sidebarList">
-                      <li className="sidebarItem"> <Link to="/nouveauDossier" className="link" style={{textDecoration:"none"}}> <BsFolderPlus className="sidebarIcon"/>Créer un dossier </Link></li>
+                    {this.props.role==="ADA"?  <li className="sidebarItem"> <Link to="/nouveauDossier" className="link" style={{textDecoration:"none"}}> <BsFolderPlus className="sidebarIcon"/>Créer un dossier </Link></li>: null}
                       <li className="sidebarItem"> <Link to="/aReceptionner" className="link" style={{textDecoration:"none"}}><BsInbox className="sidebarIcon"/> A réceptionner</Link> </li>
                       <li className="sidebarItem"> <Link to="/aEnvoyer" className="link" style={{textDecoration:"none"}}><BsBoxArrowRight className="sidebarIcon"/> A envoyer</Link> </li>
                       
